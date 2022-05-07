@@ -1,0 +1,7 @@
+.btn_place_content {
+  transition: opacity .4s ease-in-out;
+}
+
+.btn_place_content:hover {
+  opacity: .6;
+}
