@@ -6,3 +6,9 @@
   border: 2px solid #fff;
   background: url('../../../images/add-btn.svg') no-repeat center;
 }
+
+@media (min-width: 320px) and (max-width: 1279px) {
+  .profile__add-button {
+    width: 100%;
+  }
+}

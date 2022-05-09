@@ -4,11 +4,9 @@
   flex-direction: column;
   align-items: center;
 
-  font-family: 'Inter', sans-serif;
+  font-family: 'Inter', 'Arial', sans-serif;
   background-color: #000;
   color: #fff;
-}
-
-* {
-  /* border: 1px solid red; */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
