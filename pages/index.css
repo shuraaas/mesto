@@ -28,3 +28,6 @@
 @import url(../blocks/photo-grid/__description/photo-grid__description.css);
 @import url(../blocks/photo-grid/__place/photo-grid__place.css);
 @import url(../blocks/photo-grid/__like/photo-grid__like.css);
+
+@import url(../blocks/footer/footer.css);
+@import url(../blocks/footer/__text/footer__text.css);
