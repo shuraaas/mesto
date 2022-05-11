@@ -30,42 +30,48 @@
             <img class="photo-grid__img" src="./images/photo-grid-1.jpg" alt="Карачаевск.">
             <div class="photo-grid__description">
               <h2 class="photo-grid__place">Карачаевск</h2>
-              <div class="photo-grid__like"></div>
+              <button class="btn btn_type_like photo-grid__like"></button>
+              <!-- <div class="photo-grid__like"></div> -->
             </div>
           </li>
           <li class="photo-grid__item">
             <img class="photo-grid__img" src="./images/photo-grid-2.jpg" alt="Гора Эльбрус.">
             <div class="photo-grid__description">
               <h2 class="photo-grid__place">Гора Эльбрус</h2>
-              <div class="photo-grid__like"></div>
+              <!-- <div class="photo-grid__like"></div> -->
+              <button class="btn btn_type_like photo-grid__like"></button>
             </div>
           </li>
           <li class="photo-grid__item">
             <img class="photo-grid__img" src="./images/photo-grid-3.jpg" alt="Домбай.">
             <div class="photo-grid__description">
               <h2 class="photo-grid__place">Домбай</h2>
-              <div class="photo-grid__like"></div>
+              <!-- <div class="photo-grid__like"></div> -->
+              <button class="btn btn_type_like photo-grid__like"></button>
             </div>
           </li>
           <li class="photo-grid__item">
             <img class="photo-grid__img" src="./images/photo-grid-4.jpg" alt="Гора Эльбрус.">
             <div class="photo-grid__description">
               <h2 class="photo-grid__place">Гора Эльбрус</h2>
-              <div class="photo-grid__like"></div>
+              <!-- <div class="photo-grid__like"></div> -->
+              <button class="btn btn_type_like photo-grid__like"></button>
             </div>
           </li>
           <li class="photo-grid__item">
             <img class="photo-grid__img" src="./images/photo-grid-5.jpg" alt="Домбай.">
             <div class="photo-grid__description">
               <h2 class="photo-grid__place">Домбай</h2>
-              <div class="photo-grid__like"></div>
+              <!-- <div class="photo-grid__like"></div> -->
+              <button class="btn btn_type_like photo-grid__like"></button>
             </div>
           </li>
           <li class="photo-grid__item">
             <img class="photo-grid__img" src="./images/photo-grid-6.jpg" alt="Карачаево-Черкесия.">
             <div class="photo-grid__description">
               <h2 class="photo-grid__place">Карачаево-Черкесия</h2>
-              <div class="photo-grid__like"></div>
+              <!-- <div class="photo-grid__like"></div> -->
+              <button class="btn btn_type_like photo-grid__like"></button>
             </div>
           </li>
         </ul>
@@ -76,5 +82,18 @@
       <p class="footer__text">&copy; 2020 Mesto Russia</p>
     </footer>
   </div>
+  <section class="popup popup_opened">
+    <div class="popup__container">
+      <div class="btn_place_content popup__close-button"></div>
+      <form class="popup__form" action="/">
+        <h2 class="popup__description">Редактировать профиль</h2>
+        <div class="popup__content">
+          <input class="input popup__input popup__name" type="text" value="Жак-Ив Кусто">
+          <input class="input popup__input popup__job" type="text" value="Исследователь океана">
+        </div>
+        <input class="btn popup__save" type="submit" value="Сохранить">
+      </form>
+    </div>
+  </section>
 </body>
 </html>

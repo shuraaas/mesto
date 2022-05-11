@@ -1,0 +1,7 @@
+.btn_type_like {
+  transition: opacity .4s ease-in-out;
+}
+
+.btn_type_like:hover {
+  opacity: .5;
+}

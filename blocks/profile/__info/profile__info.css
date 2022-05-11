@@ -3,6 +3,7 @@
   flex-direction: column;
   gap: 8px;
   position: relative;
+  max-width: 294px;
   /* grid-template-columns: 1fr 24px;
   grid-template-rows: auto auto;
   align-items: baseline;
