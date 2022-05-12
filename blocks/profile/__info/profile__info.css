@@ -3,14 +3,7 @@
   flex-direction: column;
   gap: 8px;
   position: relative;
-  max-width: 294px;
-  /* grid-template-columns: 1fr 24px;
-  grid-template-rows: auto auto;
-  align-items: baseline;
-  gap: 16px 18px;
-  grid-template-areas:
-    "name edit"
-    "job job"; */
+  max-width: 300px;
 }
 
 @media (min-width: 320px) and (max-width: 1279px) {

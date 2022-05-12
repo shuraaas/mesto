@@ -1,6 +1,5 @@
 .profile__name {
   margin: 0;
-  /* grid-area: name; */
 
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -13,6 +12,7 @@
 
 @media (min-width: 320px) and (max-width: 1279px) {
   .profile__name {
+    max-width: 200px;
     font-size: 27px;
     line-height: 32.68px;
   }
