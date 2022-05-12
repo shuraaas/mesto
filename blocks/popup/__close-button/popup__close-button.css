@@ -5,7 +5,6 @@
   position: absolute;
   top: -40px;
   right: -40px;
-  cursor: pointer;
 
   background: url('../../../images/close-btn.svg') no-repeat center / cover;
 }
