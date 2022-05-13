@@ -1,13 +1,19 @@
 .profile__info {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  grid-template-areas:
+    "name edit"
+    "job job";
+  align-items: baseline;
+  gap: 8px 12px;
   position: relative;
   max-width: 300px;
 }
 
 @media (min-width: 320px) and (max-width: 1279px) {
   .profile__info {
+    display: flex;
+    flex-direction: column;
     align-items: center;
     gap: 7px;
   }

@@ -1,5 +1,6 @@
 .profile__job {
   margin: 0;
+  grid-area: job;
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
