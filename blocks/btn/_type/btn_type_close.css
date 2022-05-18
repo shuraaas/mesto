@@ -1,0 +1,21 @@
+.btn_type_close {
+  width: 32px;
+  height: 32px;
+  position: absolute;
+  top: -40px;
+  right: -40px;
+  background: url('../../../images/close-btn.svg') no-repeat center / cover;
+}
+
+.btn_type_close:hover {
+  opacity: .6;
+}
+
+@media (min-width: 320px) and (max-width: 1279px) {
+  .btn_type_close {
+    width: 20px;
+    height: 20px;
+    top: -36px;
+    right: 0;
+  }
+}

@@ -1,6 +1,7 @@
 .btn {
   padding: 0;
-  cursor: pointer;
   border: 0;
+  cursor: pointer;
   background: transparent;
+  transition: opacity .4s ease-in-out;
 }

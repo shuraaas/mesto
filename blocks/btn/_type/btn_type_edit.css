@@ -1,14 +1,17 @@
-.profile__edit-button {
+.btn_type_edit {
   width: 24px;
   height: 24px;
-  padding: 0;
   grid-area: edit;
   border: 1px solid #fff;
   background: url('../../../images/edit-btn.svg') no-repeat center;
 }
 
+.btn_type_edit:hover {
+  opacity: .6;
+}
+
 @media (min-width: 320px) and (max-width: 1279px) {
-  .profile__edit-button {
+  .btn_type_edit {
     width: 18px;
     height: 18px;
     background-size: 7.5px;
@@ -17,3 +20,4 @@
     right: -28px;
   }
 }
+

@@ -1,5 +1,8 @@
 .btn_type_like {
-  transition: opacity .4s ease-in-out;
+  width: 19px;
+  height: 19px;
+  padding-left: 25px;
+  background: url('../../../images/photo-grid-like.svg') no-repeat center;
 }
 
 .btn_type_like:hover {
