@@ -24,58 +24,73 @@
         <button class="btn btn_type_add" type="button"></button>
       </section>
       <!-- /.profile -->
-      <section class="photo-grid">
-        <ul class="photo-grid__items">
-          <li class="photo-grid__item">
-            <img class="photo-grid__img" src="./images/photo-grid-1.jpg" alt="Карачаевск.">
-            <div class="photo-grid__description">
-              <h2 class="photo-grid__place">Карачаевск</h2>
+      <section class="cards">
+        <ul class="cards__list">
+          <!-- <li class="card">
+            <img class="card__img" src="./images/card-1.jpg" alt="Карачаевск.">
+            <div class="card__description">
+              <h2 class="card__place">Карачаевск</h2>
               <button class="btn btn_type_like" type="button"></button>
             </div>
           </li>
-          <li class="photo-grid__item">
-            <img class="photo-grid__img" src="./images/photo-grid-2.jpg" alt="Гора Эльбрус.">
-            <div class="photo-grid__description">
-              <h2 class="photo-grid__place">Гора Эльбрус</h2>
+          <li class="card">
+            <img class="card__img" src="./images/card-2.jpg" alt="Гора Эльбрус.">
+            <div class="card__description">
+              <h2 class="card__place">Гора Эльбрус</h2>
               <button class="btn btn_type_like" type="button"></button>
             </div>
           </li>
-          <li class="photo-grid__item">
-            <img class="photo-grid__img" src="./images/photo-grid-3.jpg" alt="Домбай.">
-            <div class="photo-grid__description">
-              <h2 class="photo-grid__place">Домбай</h2>
+          <li class="card">
+            <img class="card__img" src="./images/card-3.jpg" alt="Домбай.">
+            <div class="card__description">
+              <h2 class="card__place">Домбай</h2>
               <button class="btn btn_type_like" type="button"></button>
             </div>
           </li>
-          <li class="photo-grid__item">
-            <img class="photo-grid__img" src="./images/photo-grid-4.jpg" alt="Гора Эльбрус.">
-            <div class="photo-grid__description">
-              <h2 class="photo-grid__place">Гора Эльбрус</h2>
+          <li class="card">
+            <img class="card__img" src="./images/card-4.jpg" alt="Гора Эльбрус.">
+            <div class="card__description">
+              <h2 class="card__place">Гора Эльбрус</h2>
               <button class="btn btn_type_like" type="button"></button>
             </div>
           </li>
-          <li class="photo-grid__item">
-            <img class="photo-grid__img" src="./images/photo-grid-5.jpg" alt="Домбай.">
-            <div class="photo-grid__description">
-              <h2 class="photo-grid__place">Домбай</h2>
+          <li class="card">
+            <img class="card__img" src="./images/card-5.jpg" alt="Домбай.">
+            <div class="card__description">
+              <h2 class="card__place">Домбай</h2>
               <button class="btn btn_type_like" type="button"></button>
             </div>
           </li>
-          <li class="photo-grid__item">
-            <img class="photo-grid__img" src="./images/photo-grid-6.jpg" alt="Карачаево-Черкесия.">
-            <div class="photo-grid__description">
-              <h2 class="photo-grid__place">Карачаево-Черкесия</h2>
+          <li class="card">
+            <img class="card__img" src="./images/card-6.jpg" alt="Карачаево-Черкесия.">
+            <div class="card__description">
+              <h2 class="card__place">Карачаево-Черкесия</h2>
               <button class="btn btn_type_like" type="button"></button>
             </div>
-          </li>
+          </li> -->
         </ul>
+        <!-- /.cards__list -->
       </section>
-      <!-- /.photo-grid -->
+      <!-- /.cards -->
     </main>
     <footer class="footer">
       <p class="footer__text">&copy; 2022 Mesto Russia</p>
     </footer>
   </div>
+  <!-- /.page__container -->
+
+  <!-- templates -->
+  <template class="card-template">
+    <li class="card">
+      <img class="card__img" src="" alt="">
+      <div class="card__description">
+        <h2 class="card__place"></h2>
+        <button class="btn btn_type_like" type="button"></button>
+      </div>
+    </li>
+  </template>
+
+  <!-- popaps -->
   <div class="popup">
     <div class="popup__container">
       <button class="btn btn_type_close" type="button"></button>
