@@ -91,16 +91,31 @@
   </template>
 
   <!-- popaps -->
-  <div class="popup">
+  <!-- редактирование профиля -->
+  <div class="popup popup_type_edit">
     <div class="popup__container">
       <button class="btn btn_type_close" type="button"></button>
-      <form class="popup__form" name="popup__form" method="post" action="/">
-        <h2 class="popup__description">Редактировать профиль</h2>
+      <h2 class="popup__description">Редактировать профиль</h2>
+      <form class="popup__form" name="edit-profile" method="post" action="/">
         <fieldset class="popup__content">
-          <input class="popup__input popup__input_type_name" name="popup__name" type="text">
-          <input class="popup__input popup__input_type_job" name="popup__job" type="text">
+          <input class="popup__input popup__input_type_name" name="popup__name" type="text" required>
+          <input class="popup__input popup__input_type_job" name="popup__job" type="text" required>
         </fieldset>
         <button class="btn btn_type_save" type="submit">Сохранить</button>
+      </form>
+    </div>
+  </div>
+  <!-- добавление новой корточки -->
+  <div class="popup popup_type_new-card">
+    <div class="popup__container">
+      <button class="btn btn_type_close" type="button"></button>
+      <h2 class="popup__description">Новое место</h2>
+      <form class="popup__form" name="new-place" method="post" action="/">
+        <fieldset class="popup__content">
+          <input class="popup__input popup__input_type_place-name" name="name" type="text" placeholder="Название" required>
+          <input class="popup__input popup__input_type_url" name="job" type="text" placeholder="Ссылка на картинку" required>
+        </fieldset>
+        <button class="btn btn_type_save" type="submit">Создать</button>
       </form>
     </div>
   </div>
