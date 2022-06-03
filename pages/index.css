@@ -5,8 +5,10 @@
 @import url(../blocks/btn/_type/btn_type_edit.css);
 @import url(../blocks/btn/_type/btn_type_add.css);
 @import url(../blocks/btn/_type/btn_type_like.css);
+@import url(../blocks/btn/_type/btn_type_like-active.css);
 @import url(../blocks/btn/_type/btn_type_close.css);
 @import url(../blocks/btn/_type/btn_type_save.css);
+@import url(../blocks/btn/_type/btn_type_delete.css);
 
 @import url(../blocks/page/page.css);
 @import url(../blocks/page/__container/page__container.css);

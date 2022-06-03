@@ -1,0 +1,12 @@
+.btn_type_delete {
+  width: 18px;
+  height: 19px;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: url('../../../images/delete.png') no-repeat center;
+}
+
+.btn_type_delete:hover {
+  opacity: .6;
+}

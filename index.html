@@ -82,6 +82,7 @@
   <!-- templates -->
   <template class="card-template">
     <li class="card">
+      <button class="btn btn_type_delete"></button>
       <img class="card__img" src="" alt="">
       <div class="card__description">
         <h2 class="card__place"></h2>
@@ -96,7 +97,7 @@
     <div class="popup__container">
       <button class="btn btn_type_close" type="button"></button>
       <h2 class="popup__description">Редактировать профиль</h2>
-      <form class="popup__form" name="edit-profile" method="post" action="/">
+      <form class="popup__form popup__form_type_edit" name="edit-profile" method="post" action="/">
         <fieldset class="popup__content">
           <input class="popup__input popup__input_type_name" name="popup__name" type="text" required>
           <input class="popup__input popup__input_type_job" name="popup__job" type="text" required>
@@ -110,10 +111,10 @@
     <div class="popup__container">
       <button class="btn btn_type_close" type="button"></button>
       <h2 class="popup__description">Новое место</h2>
-      <form class="popup__form" name="new-place" method="post" action="/">
+      <form class="popup__form popup__form_type_add-card" name="new-place" method="post" action="/">
         <fieldset class="popup__content">
           <input class="popup__input popup__input_type_place-name" name="name" type="text" placeholder="Название" required>
-          <input class="popup__input popup__input_type_url" name="job" type="text" placeholder="Ссылка на картинку" required>
+          <input class="popup__input popup__input_type_url" name="job" type="url" placeholder="Ссылка на картинку" required>
         </fieldset>
         <button class="btn btn_type_save" type="submit">Создать</button>
       </form>
