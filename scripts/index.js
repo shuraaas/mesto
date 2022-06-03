@@ -57,6 +57,8 @@ function renderItem(obj) {
   const cardPlaceElement = listElement.querySelector('.card__place');
   const cardLikeElement = listElement.querySelector('.btn_type_like');
 
+  const deleteButton = listElement.querySelector('.btn_type_delete').addEventListener('click', deleteCard);
+
   cardImgElement.src = obj.link;
   cardImgElement.alt = obj.name;
   cardPlaceElement.textContent = obj.name;
@@ -99,6 +101,13 @@ function addCard(evt) {
   renderItem({name, link});
 
   closePopup(evt);
+}
+
+// удаление карточки
+function deleteCard(evt) {
+  let buttonElement = evt.target;
+  let cardElement = buttonElement.closest(".card");
+  cardElement.remove();
 }
 
 // при нажитии кнопки сохранить
