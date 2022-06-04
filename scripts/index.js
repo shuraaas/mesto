@@ -53,6 +53,7 @@ function renderList(data) {
 function renderItem(obj) {
   const templateElement = page.querySelector('.card-template').content;
   const listElement = templateElement.cloneNode(true);
+  // const cardElement = listElement.querySelector('.card');
   const cardImgElement = listElement.querySelector('.card__img');
   const cardPlaceElement = listElement.querySelector('.card__place');
   const cardLikeElement = listElement.querySelector('.btn_type_like');
@@ -63,6 +64,7 @@ function renderItem(obj) {
   cardImgElement.alt = obj.name;
   cardPlaceElement.textContent = obj.name;
   cardsListElement.prepend(listElement);
+  cardImgElement.addEventListener('click', openZoomImgPopup);
 
   // лайк на карточке
   cardLikeElement.addEventListener('click', function(evt) {
@@ -82,6 +84,18 @@ function openAddCardPopup() {
   placeNameInput.value = '';
   urlPlaceInput.value = '';
   addFormPopup.classList.add("popup_opened");
+}
+
+// открытие попапа просмотра карточки
+function openZoomImgPopup(evt) {
+  const zoomImgPopup = page.querySelector('.popup_type_zoom-img');
+  const popupImgElement = zoomImgPopup.querySelector('.popup__img');
+  const popupImgNameElement = zoomImgPopup.querySelector('.popup__img-name');
+
+  zoomImgPopup.classList.add('popup_opened');
+  popupImgElement.src = evt.target.src;
+  popupImgElement.alt = evt.target.alt;
+  popupImgNameElement.textContent = evt.target.alt;
 }
 
 // закрытие попап

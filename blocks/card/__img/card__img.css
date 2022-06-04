@@ -5,3 +5,7 @@
   width: 100%;
   display: block;
 }
+
+.card__img:hover {
+  cursor: pointer;
+}
