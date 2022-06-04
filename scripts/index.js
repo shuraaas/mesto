@@ -31,7 +31,6 @@ const editButton = page.querySelector('.btn_type_edit');
 const addButton = page.querySelector('.btn_type_add');
 const editFormPopup = page.querySelector('.popup_type_edit');
 const addFormPopup = page.querySelector('.popup_type_new-card');
-// const closeButton = document.querySelector('.btn_type_close');
 const profileName = page.querySelector('.profile__name');
 const profileJob = page.querySelector('.profile__job');
 const formEdit = page.querySelector('.popup__form_type_edit');
@@ -53,7 +52,6 @@ function renderList(data) {
 function renderItem(obj) {
   const templateElement = page.querySelector('.card-template').content;
   const listElement = templateElement.cloneNode(true);
-  // const cardElement = listElement.querySelector('.card');
   const cardImgElement = listElement.querySelector('.card__img');
   const cardPlaceElement = listElement.querySelector('.card__place');
   const cardLikeElement = listElement.querySelector('.btn_type_like');
@@ -100,7 +98,6 @@ function openZoomImgPopup(evt) {
 
 // закрытие попап
 function closePopup(evt) {
-  // editFormPopup.classList.remove("popup_opened");
   let button = evt.target;
   let popupElement = button.closest('.popup');
   popupElement.classList.toggle('popup_opened');
@@ -121,6 +118,7 @@ function addCard(evt) {
 function deleteCard(evt) {
   let buttonElement = evt.target;
   let cardElement = buttonElement.closest(".card");
+  
   cardElement.remove();
 }
 
