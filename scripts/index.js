@@ -2,7 +2,6 @@ const page = document.querySelector('.page');
 const editButton = page.querySelector('.btn_type_edit');
 const addButton = page.querySelector('.btn_type_add');
 const editFormPopup = page.querySelector('.popup_type_edit');
-const addFormPopup = page.querySelector('.popup_type_new-card');
 const profileName = page.querySelector('.profile__name');
 const profileJob = page.querySelector('.profile__job');
 const formEdit = page.querySelector('.popup__form_type_edit');
@@ -12,16 +11,14 @@ const jobInput = formEdit.querySelector('.popup__input_type_job');
 const placeNameInput = formAddCard.querySelector('.popup__input_type_place-name');
 const urlPlaceInput = formAddCard.querySelector('.popup__input_type_url');
 
-// карточки
-const cardsListElement = page.querySelector('.cards__list');
-const cardsTemplateElement = page.querySelector('.card-template');
-
 function renderList(data) {
   data.forEach(item => renderItem(item));
 }
 
 // отрисовка начальных карточек
 function renderItem(obj) {
+  // карточки
+  const cardsListElement = page.querySelector('.cards__list');
   const templateElement = page.querySelector('.card-template').content;
   const listElement = templateElement.cloneNode(true);
   const cardImgElement = listElement.querySelector('.card__img');
@@ -33,10 +30,15 @@ function renderItem(obj) {
   cardImgElement.src = obj.link;
   cardImgElement.alt = obj.name;
   cardPlaceElement.textContent = obj.name;
-  cardsListElement.prepend(listElement);
+  renderCardContainer(cardsListElement, listElement);
+  // cardsListElement.prepend(listElement);
   cardImgElement.addEventListener('click', () => openZoomImgPopup(obj));
-
   cardLikeElement.addEventListener('click', likeCard);
+}
+
+// вставка каточек в контейнер
+function renderCardContainer(cardsListElement, listElement) {
+  return cardsListElement.prepend(listElement);
 }
 
 // лайк карточке
@@ -53,6 +55,8 @@ function openEditPopup() {
 
 // открытие попап добавления карточки
 function openAddCardPopup() {
+  const addFormPopup = page.querySelector('.popup_type_new-card');
+
   formAddCard.reset();
   addFormPopup.classList.add("popup_opened");
 }
@@ -79,6 +83,8 @@ function closePopup(evt) {
 // добавление новой карточки
 function addCard(evt) {
   evt.preventDefault();
+
+  // TODO тут вызвать функцию добавления карточки в контейнер
 
   const name = placeNameInput.value;
   const link = urlPlaceInput.value;
