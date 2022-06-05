@@ -96,7 +96,7 @@ function deleteCard(evt) {
 }
 
 // при нажитии кнопки сохранить
-function formSubmitHandler(evt) {
+function handleProfileFormSubmit(evt) {
   evt.preventDefault();
   profileName.textContent = nameInput.value;
   profileJob.textContent = jobInput.value;
@@ -110,5 +110,5 @@ addButton.addEventListener('click', openAddCardPopup);
 document.querySelectorAll('.btn_type_close').forEach((button) => {
   button.addEventListener('click', closePopup);
 });
-formEdit.addEventListener('submit', formSubmitHandler);
+formEdit.addEventListener('submit', handleProfileFormSubmit);
 formAddCard.addEventListener('submit', addCard);
