@@ -98,8 +98,8 @@ function openZoomImgPopup(evt) {
 
 // закрытие попап
 function closePopup(evt) {
-  let button = evt.target;
-  let popupElement = button.closest('.popup');
+  const button = evt.target;
+  const popupElement = button.closest('.popup');
   popupElement.classList.toggle('popup_opened');
 }
 
@@ -107,8 +107,8 @@ function closePopup(evt) {
 function addCard(evt) {
   evt.preventDefault();
 
-  let name = placeNameInput.value;
-  let link = urlPlaceInput.value;
+  const name = placeNameInput.value;
+  const link = urlPlaceInput.value;
   renderItem({name, link});
 
   closePopup(evt);
@@ -116,9 +116,9 @@ function addCard(evt) {
 
 // удаление карточки
 function deleteCard(evt) {
-  let buttonElement = evt.target;
-  let cardElement = buttonElement.closest(".card");
-  
+  const buttonElement = evt.target;
+  const cardElement = buttonElement.closest(".card");
+
   cardElement.remove();
 }
 
