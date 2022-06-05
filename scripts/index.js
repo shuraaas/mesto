@@ -34,7 +34,7 @@ function renderItem(obj) {
   cardImgElement.alt = obj.name;
   cardPlaceElement.textContent = obj.name;
   cardsListElement.prepend(listElement);
-  cardImgElement.addEventListener('click', openZoomImgPopup);
+  cardImgElement.addEventListener('click', () => openZoomImgPopup(obj));
 
   cardLikeElement.addEventListener('click', likeCard);
 }
@@ -58,15 +58,15 @@ function openAddCardPopup() {
 }
 
 // открытие попапа просмотра карточки
-function openZoomImgPopup(evt) {
+function openZoomImgPopup(obj) {
   const zoomImgPopup = page.querySelector('.popup_type_zoom-img');
   const popupImgElement = zoomImgPopup.querySelector('.popup__img');
   const popupImgNameElement = zoomImgPopup.querySelector('.popup__img-name');
 
   zoomImgPopup.classList.add('popup_opened');
-  popupImgElement.src = evt.target.src;
-  popupImgElement.alt = evt.target.alt;
-  popupImgNameElement.textContent = evt.target.alt;
+  popupImgElement.src = obj.link;
+  popupImgElement.alt = obj.name;
+  popupImgNameElement.textContent = obj.name;
 }
 
 // закрытие попап
