@@ -11,16 +11,15 @@ const jobInput = formEdit.querySelector('.popup__input_type_job');
 const placeNameInput = formAddCard.querySelector('.popup__input_type_place-name');
 const urlPlaceInput = formAddCard.querySelector('.popup__input_type_url');
 
+// отрисовка начальных карточек
 function renderList(data) {
-  data.forEach(item => renderItem(item));
+  data.forEach(item => renderCardContainer(renderCard(item)));
 }
 
-// отрисовка начальных карточек
-function renderItem(obj) {
-  // карточки
-  const cardsListElement = page.querySelector('.cards__list');
+// рендерим начальные карточки
+function renderCard(obj) {
   const templateElement = page.querySelector('.card-template').content;
-  const listElement = templateElement.cloneNode(true);
+  const listElement = templateElement.querySelector('.card').cloneNode(true);
   const cardImgElement = listElement.querySelector('.card__img');
   const cardPlaceElement = listElement.querySelector('.card__place');
   const cardLikeElement = listElement.querySelector('.btn_type_like');
@@ -30,15 +29,17 @@ function renderItem(obj) {
   cardImgElement.src = obj.link;
   cardImgElement.alt = obj.name;
   cardPlaceElement.textContent = obj.name;
-  renderCardContainer(cardsListElement, listElement);
-  // cardsListElement.prepend(listElement);
   cardImgElement.addEventListener('click', () => openZoomImgPopup(obj));
   cardLikeElement.addEventListener('click', likeCard);
+
+  return listElement;
 }
 
 // вставка каточек в контейнер
-function renderCardContainer(cardsListElement, listElement) {
-  return cardsListElement.prepend(listElement);
+function renderCardContainer(item) {
+  const cardsListElement = page.querySelector('.cards__list');
+
+  return cardsListElement.prepend(item);
 }
 
 // лайк карточке
@@ -84,11 +85,9 @@ function closePopup(evt) {
 function addCard(evt) {
   evt.preventDefault();
 
-  // TODO тут вызвать функцию добавления карточки в контейнер
-
   const name = placeNameInput.value;
   const link = urlPlaceInput.value;
-  renderItem({name, link});
+  renderCardContainer(renderCard({name, link}));
 
   closePopup(evt);
 }
