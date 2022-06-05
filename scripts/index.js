@@ -28,7 +28,7 @@ function renderItem(obj) {
   const cardPlaceElement = listElement.querySelector('.card__place');
   const cardLikeElement = listElement.querySelector('.btn_type_like');
 
-  const deleteButton = listElement.querySelector('.btn_type_delete').addEventListener('click', deleteCard);
+  listElement.querySelector('.btn_type_delete').addEventListener('click', deleteCard);
 
   cardImgElement.src = obj.link;
   cardImgElement.alt = obj.name;
