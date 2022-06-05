@@ -53,8 +53,7 @@ function openEditPopup() {
 
 // открытие попап добавления карточки
 function openAddCardPopup() {
-  placeNameInput.value = '';
-  urlPlaceInput.value = '';
+  formAddCard.reset();
   addFormPopup.classList.add("popup_opened");
 }
 
