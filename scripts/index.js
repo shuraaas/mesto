@@ -36,10 +36,12 @@ function renderItem(obj) {
   cardsListElement.prepend(listElement);
   cardImgElement.addEventListener('click', openZoomImgPopup);
 
-  // лайк на карточке
-  cardLikeElement.addEventListener('click', function(evt) {
-    evt.target.classList.toggle('btn_type_like-active');
-  });
+  cardLikeElement.addEventListener('click', likeCard);
+}
+
+// лайк карточке
+function likeCard(evt) {
+  evt.target.classList.toggle('btn_type_like-active');
 }
 
 // открытие попап редактирования
