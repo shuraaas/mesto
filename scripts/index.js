@@ -1,7 +1,14 @@
 const page = document.querySelector('.page');
 const editButton = page.querySelector('.btn_type_edit');
 const addButton = page.querySelector('.btn_type_add');
+// const closeButton = page.querySelectorAll('.btn_type_close');
+// console.log(closeButton)
+
+// попапы
 const editFormPopup = page.querySelector('.popup_type_edit');
+const addFormPopup = page.querySelector('.popup_type_new-card');
+const zoomImgPopup = page.querySelector('.popup_type_zoom-img');
+
 const profileName = page.querySelector('.profile__name');
 const profileJob = page.querySelector('.profile__job');
 const formEdit = page.querySelector('.popup__form_type_edit');
@@ -29,7 +36,7 @@ function renderCard(obj) {
   cardImgElement.src = obj.link;
   cardImgElement.alt = obj.name;
   cardPlaceElement.textContent = obj.name;
-  cardImgElement.addEventListener('click', () => openZoomImgPopup(obj));
+  cardImgElement.addEventListener('click', () => ZoomImgPopup(obj));
   cardLikeElement.addEventListener('click', likeCard);
 
   return listElement;
@@ -47,38 +54,43 @@ function likeCard(evt) {
   evt.target.classList.toggle('btn_type_like-active');
 }
 
+// открытие любого попапа
+function openPopup(popup) {
+  popup.classList.add('popup_opened');
+}
+
+// закрытие любого попапа
+function closePopup(popup) {
+  const button = popup.target;
+  const popupElement = button.closest('.popup');
+  popupElement.classList.remove('popup_opened');
+  // popup.classList.remove('popup_opened');
+}
+
 // открытие попап редактирования
-function openEditPopup() {
-  editFormPopup.classList.add("popup_opened");
+function EditPopup() {
+  openPopup(editFormPopup);
+
   nameInput.value = profileName.textContent;
   jobInput.value = profileJob.textContent;
 }
 
 // открытие попап добавления карточки
-function openAddCardPopup() {
-  const addFormPopup = page.querySelector('.popup_type_new-card');
-
+function AddCardPopup() {
   formAddCard.reset();
-  addFormPopup.classList.add("popup_opened");
+  openPopup(addFormPopup);
 }
 
 // открытие попапа просмотра карточки
-function openZoomImgPopup(obj) {
-  const zoomImgPopup = page.querySelector('.popup_type_zoom-img');
+function ZoomImgPopup(obj) {
+  openPopup(zoomImgPopup);
+
   const popupImgElement = zoomImgPopup.querySelector('.popup__img');
   const popupImgNameElement = zoomImgPopup.querySelector('.popup__img-name');
 
-  zoomImgPopup.classList.add('popup_opened');
   popupImgElement.src = obj.link;
   popupImgElement.alt = obj.name;
   popupImgNameElement.textContent = obj.name;
-}
-
-// закрытие попап
-function closePopup(evt) {
-  const button = evt.target;
-  const popupElement = button.closest('.popup');
-  popupElement.classList.toggle('popup_opened');
 }
 
 // добавление новой карточки
@@ -110,8 +122,9 @@ function handleProfileFormSubmit(evt) {
 
 renderList(initialCards);
 
-editButton.addEventListener('click', openEditPopup)
-addButton.addEventListener('click', openAddCardPopup);
+editButton.addEventListener('click', EditPopup)
+addButton.addEventListener('click', AddCardPopup);
+// closeButton.addEventListener('click', (evt) => closePopup(evt));
 document.querySelectorAll('.btn_type_close').forEach((button) => {
   button.addEventListener('click', closePopup);
 });
