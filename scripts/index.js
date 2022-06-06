@@ -1,13 +1,16 @@
 const page = document.querySelector('.page');
 const editButton = page.querySelector('.btn_type_edit');
 const addButton = page.querySelector('.btn_type_add');
-// const closeButton = page.querySelectorAll('.btn_type_close');
-// console.log(closeButton)
 
 // попапы
 const editFormPopup = page.querySelector('.popup_type_edit');
 const addFormPopup = page.querySelector('.popup_type_new-card');
 const zoomImgPopup = page.querySelector('.popup_type_zoom-img');
+
+// кнопки закрытия
+const editFormCloseButton = editFormPopup.querySelector('.btn_type_close');
+const addFormCloseButton = addFormPopup.querySelector('.btn_type_close');
+const zoomImgCloseButton = zoomImgPopup.querySelector('.btn_type_close');
 
 const profileName = page.querySelector('.profile__name');
 const profileJob = page.querySelector('.profile__job');
@@ -61,10 +64,7 @@ function openPopup(popup) {
 
 // закрытие любого попапа
 function closePopup(popup) {
-  const button = popup.target;
-  const popupElement = button.closest('.popup');
-  popupElement.classList.remove('popup_opened');
-  // popup.classList.remove('popup_opened');
+  popup.classList.remove('popup_opened');
 }
 
 // открытие попап редактирования
@@ -99,9 +99,9 @@ function addCard(evt) {
 
   const name = placeNameInput.value;
   const link = urlPlaceInput.value;
-  renderCardContainer(renderCard({name, link}));
 
-  closePopup(evt);
+  renderCardContainer(renderCard({name, link}));
+  closePopup(addFormPopup);
 }
 
 // удаление карточки
@@ -115,18 +115,19 @@ function deleteCard(evt) {
 // при нажитии кнопки сохранить
 function handleProfileFormSubmit(evt) {
   evt.preventDefault();
+
   profileName.textContent = nameInput.value;
   profileJob.textContent = jobInput.value;
-  closePopup(evt);
+
+  closePopup(editFormPopup);
 }
 
 renderList(initialCards);
 
 editButton.addEventListener('click', EditPopup)
 addButton.addEventListener('click', AddCardPopup);
-// closeButton.addEventListener('click', (evt) => closePopup(evt));
-document.querySelectorAll('.btn_type_close').forEach((button) => {
-  button.addEventListener('click', closePopup);
-});
+editFormCloseButton.addEventListener('click', () => closePopup(editFormPopup));
+addFormCloseButton.addEventListener('click', () => closePopup(addFormPopup));
+zoomImgCloseButton.addEventListener('click', () => closePopup(zoomImgPopup));
 formEdit.addEventListener('submit', handleProfileFormSubmit);
 formAddCard.addEventListener('submit', addCard);
