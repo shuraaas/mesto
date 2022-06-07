@@ -1,12 +1,11 @@
 const page = document.querySelector('.page');
+// кнопки
 const editButton = page.querySelector('.btn_type_edit');
 const addButton = page.querySelector('.btn_type_add');
-
 // попапы
 const editFormPopup = page.querySelector('.popup_type_edit');
 const addFormPopup = page.querySelector('.popup_type_new-card');
 const zoomImgPopup = page.querySelector('.popup_type_zoom-img');
-
 // кнопки закрытия
 const editFormCloseButton = editFormPopup.querySelector('.btn_type_close');
 const addFormCloseButton = addFormPopup.querySelector('.btn_type_close');
@@ -39,7 +38,7 @@ function renderCard(obj) {
   cardImgElement.src = obj.link;
   cardImgElement.alt = obj.name;
   cardPlaceElement.textContent = obj.name;
-  cardImgElement.addEventListener('click', () => ZoomImgPopup(obj));
+  cardImgElement.addEventListener('click', () => openZoomImgPopup(obj));
   cardLikeElement.addEventListener('click', likeCard);
 
   return listElement;
@@ -68,7 +67,7 @@ function closePopup(popup) {
 }
 
 // открытие попап редактирования
-function EditPopup() {
+function openEditPopup() {
   openPopup(editFormPopup);
 
   nameInput.value = profileName.textContent;
@@ -76,13 +75,13 @@ function EditPopup() {
 }
 
 // открытие попап добавления карточки
-function AddCardPopup() {
+function openAddCardPopup() {
   formAddCard.reset();
   openPopup(addFormPopup);
 }
 
 // открытие попапа просмотра карточки
-function ZoomImgPopup(obj) {
+function openZoomImgPopup(obj) {
   openPopup(zoomImgPopup);
 
   const popupImgElement = zoomImgPopup.querySelector('.popup__img');
@@ -124,8 +123,8 @@ function handleProfileFormSubmit(evt) {
 
 renderList(initialCards);
 
-editButton.addEventListener('click', EditPopup)
-addButton.addEventListener('click', AddCardPopup);
+editButton.addEventListener('click', openEditPopup);
+addButton.addEventListener('click', openAddCardPopup);
 editFormCloseButton.addEventListener('click', () => closePopup(editFormPopup));
 addFormCloseButton.addEventListener('click', () => closePopup(addFormPopup));
 zoomImgCloseButton.addEventListener('click', () => closePopup(zoomImgPopup));
