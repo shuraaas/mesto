@@ -13,12 +13,19 @@ const zoomImgCloseButton = zoomImgPopup.querySelector('.btn_type_close');
 
 const profileName = page.querySelector('.profile__name');
 const profileJob = page.querySelector('.profile__job');
-const formEdit = page.querySelector('.popup__form_type_edit');
-const formAddCard = page.querySelector('.popup__form_type_add-card');
-const nameInput = formEdit.querySelector('.popup__input_type_name');
-const jobInput = formEdit.querySelector('.popup__input_type_job');
-const placeNameInput = formAddCard.querySelector('.popup__input_type_place-name');
-const urlPlaceInput = formAddCard.querySelector('.popup__input_type_url');
+
+// формы
+const formEdit = page.querySelector('.form_type_edit');
+const formAddCard = page.querySelector('.form_type_add-card');
+// const formButton = page.querySelector('.btn_type_save');
+// console.log(formButton);
+// console.log(formEdit);
+// console.log(formAddCard);
+
+const nameInput = formEdit.querySelector('.form__input_type_name');
+const jobInput = formEdit.querySelector('.form__input_type_job');
+const placeNameInput = formAddCard.querySelector('.form__input_type_place-name');
+const urlPlaceInput = formAddCard.querySelector('.form__input_type_url');
 
 // отрисовка начальных карточек
 function renderList(data) {

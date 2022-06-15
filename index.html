@@ -56,13 +56,31 @@
     <div class="popup__container">
       <button class="btn btn_type_close" type="button"></button>
       <h2 class="popup__description">Редактировать профиль</h2>
-      <form class="popup__form popup__form_type_edit" name="edit-profile" method="post" action="/">
-        <fieldset class="popup__content">
-          <input class="popup__input popup__input_type_name" name="popup__name" type="text" placeholder="Имя" required>
-          <input class="popup__input popup__input_type_job" name="popup__job" type="text" placeholder="Профессия" required>
+
+      <!-- ? первая форма -->
+      <form class="form form_type_edit" name="edit-profile" method="post" action="/">
+        <fieldset class="form__content">
+
+          <label class="form__field">
+
+            <input class="form__input form__input_type_name" name="name" id="name-input" type="text" placeholder="Имя" minlength="2" maxlength="40" required>
+            <!-- ! текст ошибки -->
+            <span class="form__input-error name-input-error"></span>
+
+          </label>
+
+          <label class="form__field">
+
+            <input class="form__input form__input_type_job" name="job" id="job-input" type="text" placeholder="О себе" minlength="2" maxlength="200" required>
+            <!-- ! текст ошибки -->
+            <span class="form__input-error job-input-error"></span>
+
+          </label>
+
         </fieldset>
-        <button class="btn btn_type_save" type="submit">Сохранить</button>
+        <button  class="btn btn_type_save" type="submit">Сохранить</button>
       </form>
+
     </div>
   </div>
   <!-- добавление новой корточки -->
@@ -70,13 +88,31 @@
     <div class="popup__container">
       <button class="btn btn_type_close" type="button"></button>
       <h2 class="popup__description">Новое место</h2>
-      <form class="popup__form popup__form_type_add-card" name="new-place" method="post" action="/">
-        <fieldset class="popup__content">
-          <input class="popup__input popup__input_type_place-name" name="name" type="text" placeholder="Название" required>
-          <input class="popup__input popup__input_type_url" name="job" type="url" placeholder="Ссылка на картинку" required>
+
+      <!-- ? Вторая форма -->
+      <form class="form form_type_add-card" name="new-place" method="post" action="/">
+        <fieldset class="form__content">
+
+          <label class="form__field">
+
+            <input class="form__input form__input_type_place-name" name="place-name" id="place-name-input" type="text" placeholder="Название" minlength="2" maxlength="30" required>
+            <!-- ! текст ошибки -->
+            <span class="form__input-error place-name-input-error"></span>
+
+          </label>
+
+          <label class="form__field">
+
+            <input class="form__input form__input_type_url" name="url" id="url-input" type="url" placeholder="Ссылка на картинку" required>
+            <!-- ! текст ошибки -->
+            <span class="form__input-error url-input-error"></span>
+
+          </label>
+
         </fieldset>
         <button class="btn btn_type_save" type="submit">Создать</button>
       </form>
+
     </div>
   </div>
   <!-- увеличение картинки -->
@@ -90,5 +126,6 @@
 
   <script src="./scripts/cards.js"></script>
   <script src="./scripts/index.js"></script>
+  <script src="./scripts/validation.js"></script>
 </body>
 </html>
