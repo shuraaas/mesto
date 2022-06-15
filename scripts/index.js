@@ -146,3 +146,10 @@ popupList.forEach((popup) => {
     }
   });
 });
+// закрываем попап по Esc
+page.addEventListener('keydown', (evt) => {
+  const popup = evt.currentTarget.querySelector('.popup_opened');
+  if (popup && evt.key === 'Escape') {
+    popup.classList.remove('popup_opened');
+  }
+});
