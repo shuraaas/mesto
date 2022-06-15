@@ -3,6 +3,7 @@ const page = document.querySelector('.page');
 const editButton = page.querySelector('.btn_type_edit');
 const addButton = page.querySelector('.btn_type_add');
 // попапы
+const popupList = page.querySelectorAll('.popup');
 const editFormPopup = page.querySelector('.popup_type_edit');
 const addFormPopup = page.querySelector('.popup_type_new-card');
 const zoomImgPopup = page.querySelector('.popup_type_zoom-img');
@@ -137,3 +138,11 @@ addFormCloseButton.addEventListener('click', () => closePopup(addFormPopup));
 zoomImgCloseButton.addEventListener('click', () => closePopup(zoomImgPopup));
 formEdit.addEventListener('submit', handleProfileFormSubmit);
 formAddCard.addEventListener('submit', addCard);
+// закрытие попапа по клику на оверлей
+popupList.forEach((popup) => {
+  popup.addEventListener('click', (evt) => {
+    if (evt.target === evt.currentTarget) {
+      closePopup(evt.currentTarget);
+    }
+  });
+});
