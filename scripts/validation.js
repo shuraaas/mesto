@@ -31,18 +31,14 @@ const checkInputValidity = (formElement, inputElement) => {
 
 const setEventListeners = (formElement) => {
   const inputList = Array.from(formElement.querySelectorAll(config.inputSelector));
+  const buttonList = Array.from(document.querySelectorAll(config.submitButtonSelector));
 
-  // ! тут может быть ошибка, так как ищу через document
-  const buttonElement = document.querySelector(config.submitButtonSelector);
-  // const buttonElement = Array.from(document.querySelectorAll(config.submitButtonSelector));
-
-
-  toggleButtonState(inputList, buttonElement);
+  toggleButtonState(inputList, buttonList);
 
   inputList.forEach((inputElement) => {
     inputElement.addEventListener('input', function () {
       checkInputValidity(formElement, inputElement);
-      toggleButtonState(inputList, buttonElement);
+      toggleButtonState(inputList, buttonList);
     });
   });
 };
@@ -60,17 +56,23 @@ const enableValidation = () => {
   });
 }
 
+// проверяем, есть ли хоть одино не валидное поле
 const hasInvalidInput = (inputList) => {
   return inputList.some((inputElement) => {
     return !inputElement.validity.valid;
   });
 };
 
-const toggleButtonState = (inputList, buttonElement) => {
+const toggleButtonState = (inputList, buttonList) => {
+
   if(hasInvalidInput(inputList)) {
-    buttonElement.classList.add(config.inactiveButtonClass);
+    buttonList.forEach((buttonElement) => {
+      buttonElement.classList.add(config.inactiveButtonClass);
+    });
   } else {
-    buttonElement.classList.remove(config.inactiveButtonClass);
+    buttonList.forEach((buttonElement) => {
+      buttonElement.classList.remove(config.inactiveButtonClass);
+    });
   }
 };
 
