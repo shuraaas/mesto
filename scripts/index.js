@@ -15,18 +15,21 @@ const zoomImgCloseButton = zoomImgPopup.querySelector('.btn_type_close');
 const profileName = page.querySelector('.profile__name');
 const profileJob = page.querySelector('.profile__job');
 
+// контейрер для карточек
+const cardsListElement = page.querySelector('.cards__list');
+
 // формы
 const formEdit = page.querySelector('.form_type_edit');
 const formAddCard = page.querySelector('.form_type_add-card');
-// const formButton = page.querySelector('.btn_type_save');
-// console.log(formButton);
-// console.log(formEdit);
-// console.log(formAddCard);
 
 const nameInput = formEdit.querySelector('.form__input_type_name');
 const jobInput = formEdit.querySelector('.form__input_type_job');
 const placeNameInput = formAddCard.querySelector('.form__input_type_place-name');
 const urlPlaceInput = formAddCard.querySelector('.form__input_type_url');
+
+// элементы попапа открытия карточек
+const popupImgElement = zoomImgPopup.querySelector('.popup__img');
+const popupImgNameElement = zoomImgPopup.querySelector('.popup__img-name');
 
 // отрисовка начальных карточек
 function renderList(data) {
@@ -54,8 +57,6 @@ function renderCard(obj) {
 
 // вставка каточек в контейнер
 function renderCardContainer(item) {
-  const cardsListElement = page.querySelector('.cards__list');
-
   return cardsListElement.prepend(item);
 }
 
@@ -91,9 +92,6 @@ function openAddCardPopup() {
 // открытие попапа просмотра карточки
 function openZoomImgPopup(obj) {
   openPopup(zoomImgPopup);
-
-  const popupImgElement = zoomImgPopup.querySelector('.popup__img');
-  const popupImgNameElement = zoomImgPopup.querySelector('.popup__img-name');
 
   popupImgElement.src = obj.link;
   popupImgElement.alt = obj.name;
