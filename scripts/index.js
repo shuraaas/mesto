@@ -71,11 +71,13 @@ function openPopup(popup) {
   // popup.querySelector(config.formSelector).reset();
   // console.log(popup.querySelector(config.formSelector));
   popup.classList.add('popup_opened');
+  document.addEventListener('keydown', closeByEscape);
 }
 
 // закрытие любого попапа
 function closePopup(popup) {
   popup.classList.remove('popup_opened');
+  document.removeEventListener('keydown', closeByEscape);
 }
 
 // открытие попап редактирования
@@ -134,25 +136,20 @@ function handleProfileFormSubmit(evt) {
   closePopup(editFormPopup);
 }
 
+// закрытие попап по нажатию Escape
+function closeByEscape(evt) {
+  if (evt.key === 'Escape') {
+    const openedPopup = document.querySelector('.popup_opened');
+    closePopup(openedPopup);
+  }
+}
+
 renderList(initialCards);
 
 editButton.addEventListener('click', openEditPopup);
 addButton.addEventListener('click', openAddCardPopup);
-// это больше не нужно
-// editFormCloseButton.addEventListener('click', () => closePopup(editFormPopup));
-// addFormCloseButton.addEventListener('click', () => closePopup(addFormPopup));
-// zoomImgCloseButton.addEventListener('click', () => closePopup(zoomImgPopup));
 formEdit.addEventListener('submit', handleProfileFormSubmit);
 formAddCard.addEventListener('submit', addCard);
-
-// закрытие попапа по клику на оверлей
-// popupList.forEach((popup) => {
-//   popup.addEventListener('click', (evt) => {
-//     if (evt.target === evt.currentTarget) {
-//       closePopup(evt.currentTarget);
-//     }
-//   });
-// });
 
 // закрытие попапа по клику на оверлей и крестик
 popupList.forEach((popup) => {
@@ -166,12 +163,4 @@ popupList.forEach((popup) => {
       closePopup(popup);
     }
   });
-});
-
-// закрываем попап по Esc
-page.addEventListener('keydown', (evt) => {
-  const popup = evt.currentTarget.querySelector('.popup_opened');
-  if (popup && evt.key === 'Escape') {
-    popup.classList.remove('popup_opened');
-  }
 });
