@@ -67,6 +67,8 @@ function likeCard(evt) {
 
 // открытие любого попапа
 function openPopup(popup) {
+  // popup.querySelector(config.formSelector).reset();
+  // console.log(popup.querySelector(config.formSelector));
   popup.classList.add('popup_opened');
 }
 
@@ -101,6 +103,10 @@ function openZoomImgPopup(obj) {
 // добавление новой карточки
 function addCard(evt) {
   evt.preventDefault();
+
+  // проверим валидность инпутов
+  // console.log(placeNameInput.validity.valid);
+  // console.log(urlPlaceInput.validity.valid);
 
   const name = placeNameInput.value;
   const link = urlPlaceInput.value;

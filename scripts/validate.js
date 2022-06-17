@@ -1,9 +1,15 @@
 const config = {
+  // селектор класса формы
   formSelector: '.form',
+  // селектор поля ввода формы
   inputSelector: '.form__input',
+  // селектор кнопки отправки формы
   submitButtonSelector: '.btn_type_save',
+  // класс неактивной кнопки
   inactiveButtonClass: 'btn_inactive',
+  // класс ошибки поля ввода
   inputErrorClass: 'form__input_type_error',
+  // класс подсказки ошибки
   errorClass: 'form__input-error_active'
 };
 
@@ -51,6 +57,11 @@ const enableValidation = () => {
       evt.preventDefault();
     });
 
+    // ! тут что-нибудь сделать
+    // formElement.addEventListener('reset', function(evt) {
+    //   console.log(evt.target);
+    // });
+
     const fieldset = formElement.querySelector('.form__content');
     setEventListeners(fieldset);
   });
@@ -65,15 +76,20 @@ const hasInvalidInput = (inputList) => {
 
 const toggleButtonState = (inputList, buttonList) => {
 
+
   if(hasInvalidInput(inputList)) {
     buttonList.forEach((buttonElement) => {
       buttonElement.classList.add(config.inactiveButtonClass);
+      buttonElement.disabled = true;
     });
   } else {
     buttonList.forEach((buttonElement) => {
       buttonElement.classList.remove(config.inactiveButtonClass);
+      buttonElement.disabled = false;
     });
   }
 };
+
+
 
 enableValidation();
