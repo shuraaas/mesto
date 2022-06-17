@@ -7,10 +7,11 @@ const popupList = page.querySelectorAll('.popup');
 const editFormPopup = page.querySelector('.popup_type_edit');
 const addFormPopup = page.querySelector('.popup_type_new-card');
 const zoomImgPopup = page.querySelector('.popup_type_zoom-img');
-// кнопки закрытия
-const editFormCloseButton = editFormPopup.querySelector('.btn_type_close');
-const addFormCloseButton = addFormPopup.querySelector('.btn_type_close');
-const zoomImgCloseButton = zoomImgPopup.querySelector('.btn_type_close');
+
+// это больше не нужно
+// const editFormCloseButton = editFormPopup.querySelector('.btn_type_close');
+// const addFormCloseButton = addFormPopup.querySelector('.btn_type_close');
+// const zoomImgCloseButton = zoomImgPopup.querySelector('.btn_type_close');
 
 const profileName = page.querySelector('.profile__name');
 const profileJob = page.querySelector('.profile__job');
@@ -137,19 +138,36 @@ renderList(initialCards);
 
 editButton.addEventListener('click', openEditPopup);
 addButton.addEventListener('click', openAddCardPopup);
-editFormCloseButton.addEventListener('click', () => closePopup(editFormPopup));
-addFormCloseButton.addEventListener('click', () => closePopup(addFormPopup));
-zoomImgCloseButton.addEventListener('click', () => closePopup(zoomImgPopup));
+// это больше не нужно
+// editFormCloseButton.addEventListener('click', () => closePopup(editFormPopup));
+// addFormCloseButton.addEventListener('click', () => closePopup(addFormPopup));
+// zoomImgCloseButton.addEventListener('click', () => closePopup(zoomImgPopup));
 formEdit.addEventListener('submit', handleProfileFormSubmit);
 formAddCard.addEventListener('submit', addCard);
+
 // закрытие попапа по клику на оверлей
+// popupList.forEach((popup) => {
+//   popup.addEventListener('click', (evt) => {
+//     if (evt.target === evt.currentTarget) {
+//       closePopup(evt.currentTarget);
+//     }
+//   });
+// });
+
+// закрытие попапа по клику на оверлей и крестик
 popupList.forEach((popup) => {
-  popup.addEventListener('click', (evt) => {
-    if (evt.target === evt.currentTarget) {
-      closePopup(evt.currentTarget);
+  popup.addEventListener('mousedown', (evt) => {
+    // закрываем при клике на оверлей
+    if (evt.target.classList.contains('popup_opened')) {
+      closePopup(popup);
+    }
+    // закрываем при клике на крестик
+    if (evt.target.classList.contains('btn_type_close')) {
+      closePopup(popup);
     }
   });
 });
+
 // закрываем попап по Esc
 page.addEventListener('keydown', (evt) => {
   const popup = evt.currentTarget.querySelector('.popup_opened');
