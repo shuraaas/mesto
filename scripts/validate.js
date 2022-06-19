@@ -85,12 +85,10 @@ const toggleButtonState = (inputList, buttonList, settings) => {
 
 // валидация открытого попапа
 const validatePopup = (popup, settings) => {
-  if (!popup.classList.contains('popup_type_zoom-img')) {
-    const inputList = Array.from(popup.querySelectorAll(settings.inputSelector));
-    const buttonList = Array.from(popup.querySelectorAll(settings.submitButtonSelector));
+  const inputList = Array.from(popup.querySelectorAll(settings.inputSelector));
+  const buttonList = Array.from(popup.querySelectorAll(settings.submitButtonSelector));
 
-    toggleButtonState(inputList, buttonList, settings);
-  }
+  toggleButtonState(inputList, buttonList, settings);
 }
 
 enableValidation(settings);

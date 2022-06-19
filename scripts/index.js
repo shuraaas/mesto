@@ -64,8 +64,6 @@ function likeCard(evt) {
 // открытие любого попапа
 function openPopup(popup) {
   popup.classList.add('popup_opened');
-  // при открытии валидируем попап
-  validatePopup(popup, settings);
   document.addEventListener('keydown', closeByEscape);
 }
 
@@ -87,6 +85,8 @@ function openEditPopup() {
 function openAddCardPopup() {
   formAddCard.reset();
   openPopup(addFormPopup);
+  // при открытии валидируем попап
+  validatePopup(addFormPopup, settings);
 }
 
 // открытие попапа просмотра карточки
