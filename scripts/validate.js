@@ -57,11 +57,6 @@ const enableValidation = (settings) => {
       evt.preventDefault();
     });
 
-    // ! тут что-нибудь сделать
-    // formElement.addEventListener('reset', function(evt) {
-    //   console.log(evt.target);
-    // });
-
     const fieldset = formElement.querySelector('.form__content');
     setEventListeners(fieldset, settings);
   });
@@ -75,8 +70,6 @@ const hasInvalidInput = (inputList) => {
 };
 
 const toggleButtonState = (inputList, buttonList, settings) => {
-
-
   if(hasInvalidInput(inputList)) {
     buttonList.forEach((buttonElement) => {
       buttonElement.classList.add(settings.inactiveButtonClass);
@@ -89,5 +82,15 @@ const toggleButtonState = (inputList, buttonList, settings) => {
     });
   }
 };
+
+// валидация открытого попапа
+const validatePopup = (popup, settings) => {
+  if (!popup.classList.contains('popup_type_zoom-img')) {
+    const inputList = Array.from(popup.querySelectorAll(settings.inputSelector));
+    const buttonList = Array.from(popup.querySelectorAll(settings.submitButtonSelector));
+
+    toggleButtonState(inputList, buttonList, settings);
+  }
+}
 
 enableValidation(settings);

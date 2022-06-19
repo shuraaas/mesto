@@ -8,11 +8,6 @@ const editFormPopup = page.querySelector('.popup_type_edit');
 const addFormPopup = page.querySelector('.popup_type_new-card');
 const zoomImgPopup = page.querySelector('.popup_type_zoom-img');
 
-// это больше не нужно
-// const editFormCloseButton = editFormPopup.querySelector('.btn_type_close');
-// const addFormCloseButton = addFormPopup.querySelector('.btn_type_close');
-// const zoomImgCloseButton = zoomImgPopup.querySelector('.btn_type_close');
-
 const profileName = page.querySelector('.profile__name');
 const profileJob = page.querySelector('.profile__job');
 
@@ -68,9 +63,9 @@ function likeCard(evt) {
 
 // открытие любого попапа
 function openPopup(popup) {
-  // popup.querySelector(config.formSelector).reset();
-  // console.log(popup.querySelector(config.formSelector));
   popup.classList.add('popup_opened');
+  // при открытии валидируем попап
+  validatePopup(popup, settings);
   document.addEventListener('keydown', closeByEscape);
 }
 
@@ -106,10 +101,6 @@ function openZoomImgPopup(obj) {
 // добавление новой карточки
 function addCard(evt) {
   evt.preventDefault();
-
-  // проверим валидность инпутов
-  // console.log(placeNameInput.validity.valid);
-  // console.log(urlPlaceInput.validity.valid);
 
   const name = placeNameInput.value;
   const link = urlPlaceInput.value;
