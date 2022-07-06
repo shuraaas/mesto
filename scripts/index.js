@@ -1,3 +1,7 @@
+import {initialCards, settings} from './values.js';
+import {Card} from './Card.js';
+import {FormValidator} from './FormValidator.js';
+
 const page = document.querySelector('.page');
 // кнопки
 const editButton = page.querySelector('.btn_type_edit');
@@ -23,78 +27,13 @@ const jobInput = formEdit.querySelector('.form__input_type_job');
 const placeNameInput = formAddCard.querySelector('.form__input_type_place-name');
 const urlPlaceInput = formAddCard.querySelector('.form__input_type_url');
 
-// элементы попапа открытия карточек
-const popupImgElement = zoomImgPopup.querySelector('.popup__img');
-const popupImgNameElement = zoomImgPopup.querySelector('.popup__img-name');
-
 // для каждой формы свой экземпляр класса
 const formEditValidator = new FormValidator(settings, formEdit);
 const formAddCardValidator = new FormValidator(settings, formAddCard);
-formEditValidator.enableValidation();
-formAddCardValidator.enableValidation();
 
-
-class Card {
-  constructor(data, cardSelector) {
-    this._name = data.name;
-    this._link = data.link;
-    this._cardSelector = cardSelector;
-  }
-
-  // возвращаем разметку карточки
-  _getTemplate() {
-    const cardElement = document
-      .querySelector(this._cardSelector)
-      .content
-      .querySelector('.card')
-      .cloneNode(true);
-
-    return cardElement;
-  }
-
-  // генерируем карточку
-  generateCard() {
-    this._element = this._getTemplate();
-    this._setEventListeners();
-    this._element.querySelector('.card__img').src = this._link;
-    this._element.querySelector('.card__img').alt = this._link;
-    this._element.querySelector('.card__place').textContent = this._name;
-    return this._element;
-  }
-
-  // лайк карточке
-  _likeCard(card) {
-    card.querySelector('.btn_type_like').classList.toggle('btn_type_like-active');
-  }
-
-  // удаление карточки
-  _deleteCard(card) {
-    card.remove();
-  }
-
-  _handleOpenPopup() {
-    popupImgElement.src = this._link;
-    popupImgElement.alt = this._name;
-    popupImgNameElement.textContent = this._name;
-    zoomImgPopup.classList.add('popup_opened');
-    document.addEventListener('keydown', closeByEscape);
-  }
-
-  // _handleClosePopup() {
-  //   popupImage.src = '';
-  //   popupElement.classList.remove('popup_is-opened');
-  // }
-
-  // ставим все слушатели на карточку
-  _setEventListeners() {
-    // this._element.addEventListener('click', () => this._handleOpenPopup());
-    // popupCloseButton.addEventListener('click', () => this._handleClosePopup());
-    this._element.querySelector('.card__img').addEventListener('click', () => this._handleOpenPopup());
-    this._element.querySelector('.btn_type_like').addEventListener('click', () => this._likeCard(this._element));
-    this._element.querySelector('.btn_type_delete').addEventListener('click', () => this._deleteCard(this._element));
-  }
-} // Class CARD
-
+// элементы попапа открытия карточек
+const popupImgElement = zoomImgPopup.querySelector('.popup__img');
+const popupImgNameElement = zoomImgPopup.querySelector('.popup__img-name');
 
 
 // отрисовка начальных карточек
@@ -141,6 +80,15 @@ function openAddCardPopup() {
   formAddCardValidator.validatePopup(addFormPopup, settings);
 }
 
+// открытие попапа просмотра карточки
+export function openZoomImgPopup(link, name) {
+  openPopup(zoomImgPopup);
+
+  popupImgElement.src = link;
+  popupImgElement.alt = name;
+  popupImgNameElement.textContent = name;
+}
+
 // добавление новой карточки
 function addCard(evt) {
   evt.preventDefault();
@@ -176,6 +124,10 @@ function closeByEscape(evt) {
 // добавляем изначально 6 карточек
 renderList(initialCards);
 
+// валидируем формы при загрузке страницы
+formEditValidator.enableValidation();
+formAddCardValidator.enableValidation();
+
 editButton.addEventListener('click', openEditPopup);
 addButton.addEventListener('click', openAddCardPopup);
 formEdit.addEventListener('submit', handleProfileFormSubmit);
@@ -196,7 +148,6 @@ popupList.forEach((popup) => {
 });
 
 
-// БЫЛО
 /*
 const page = document.querySelector('.page');
 // кнопки
