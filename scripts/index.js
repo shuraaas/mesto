@@ -27,7 +27,11 @@ const urlPlaceInput = formAddCard.querySelector('.form__input_type_url');
 const popupImgElement = zoomImgPopup.querySelector('.popup__img');
 const popupImgNameElement = zoomImgPopup.querySelector('.popup__img-name');
 
-
+// для каждой формы свой экземпляр класса
+const formEditValidator = new FormValidator(settings, formEdit);
+const formAddCardValidator = new FormValidator(settings, formAddCard);
+formEditValidator.enableValidation();
+formAddCardValidator.enableValidation();
 
 
 class Card {
@@ -134,7 +138,7 @@ function openAddCardPopup() {
   formAddCard.reset();
   openPopup(addFormPopup);
   // при открытии валидируем попап
-  validatePopup(addFormPopup, settings);
+  formAddCardValidator.validatePopup(addFormPopup, settings);
 }
 
 // добавление новой карточки
