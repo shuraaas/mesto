@@ -4,13 +4,13 @@ import {FormValidator} from './FormValidator.js';
 
 const page = document.querySelector('.page');
 // кнопки
-const editButton = page.querySelector('.btn_type_edit');
-const addButton = page.querySelector('.btn_type_add');
+const buttonEdit = page.querySelector('.btn_type_edit');
+const buttonAdd = page.querySelector('.btn_type_add');
 // попапы
 const popupList = page.querySelectorAll('.popup');
-const editFormPopup = page.querySelector('.popup_type_edit');
-const addFormPopup = page.querySelector('.popup_type_new-card');
-const zoomImgPopup = page.querySelector('.popup_type_zoom-img');
+const popupTypeEdit = page.querySelector('.popup_type_edit');
+const popupTypeAdd = page.querySelector('.popup_type_new-card');
+const popupTypeZoom = page.querySelector('.popup_type_zoom-img');
 
 const profileName = page.querySelector('.profile__name');
 const profileJob = page.querySelector('.profile__job');
@@ -32,24 +32,25 @@ const formEditValidator = new FormValidator(settings, formEdit);
 const formAddCardValidator = new FormValidator(settings, formAddCard);
 
 // элементы попапа открытия карточек
-const popupImgElement = zoomImgPopup.querySelector('.popup__img');
-const popupImgNameElement = zoomImgPopup.querySelector('.popup__img-name');
+const popupImgElement = popupTypeZoom.querySelector('.popup__img');
+const popupImgNameElement = popupTypeZoom.querySelector('.popup__img-name');
 
 
 // отрисовка начальных карточек
 function renderList(data) {
-  data.forEach((item) => {
-    const card = new Card(item, '.card-template');
-    const cardElement = card.generateCard();
-
-    // Добавляем в DOM
-    renderCardContainer(cardElement);
-  });
+  data.forEach((item) => renderCardContainer(createCard(item, '.card-template')));
 }
 
 // вставка каточек в контейнер
 function renderCardContainer(item) {
   return cardsListElement.prepend(item);
+}
+
+// создание карточки
+function createCard(data, cardSelector) {
+  const card = new Card(data, cardSelector);
+
+  return card.generateCard();
 }
 
 // открытие любого попапа
@@ -66,7 +67,7 @@ function closePopup(popup) {
 
 // открытие попап редактирования
 function openEditPopup() {
-  openPopup(editFormPopup);
+  openPopup(popupTypeEdit);
 
   nameInput.value = profileName.textContent;
   jobInput.value = profileJob.textContent;
@@ -75,14 +76,14 @@ function openEditPopup() {
 // открытие попап добавления карточки
 function openAddCardPopup() {
   formAddCard.reset();
-  openPopup(addFormPopup);
+  openPopup(popupTypeAdd);
   // при открытии валидируем попап
   formAddCardValidator.validatePopup();
 }
 
 // открытие попапа просмотра карточки
 export function openZoomImgPopup(link, name) {
-  openPopup(zoomImgPopup);
+  openPopup(popupTypeZoom);
 
   popupImgElement.src = link;
   popupImgElement.alt = name;
@@ -96,11 +97,8 @@ function addCard(evt) {
   const name = placeNameInput.value;
   const link = urlPlaceInput.value;
 
-  const card = new Card({name, link}, '.card-template');
-  const cardElement = card.generateCard();
-
-  renderCardContainer(cardElement);
-  closePopup(addFormPopup);
+  renderCardContainer(createCard({name, link}, '.card-template'));
+  closePopup(popupTypeAdd);
 }
 
 // при нажитии кнопки сохранить
@@ -110,7 +108,7 @@ function handleProfileFormSubmit(evt) {
   profileName.textContent = nameInput.value;
   profileJob.textContent = jobInput.value;
 
-  closePopup(editFormPopup);
+  closePopup(popupTypeEdit);
 }
 
 // закрытие попап по нажатию Escape
@@ -127,9 +125,9 @@ renderList(initialCards);
 // валидируем формы при загрузке страницы
 formEditValidator.enableValidation();
 formAddCardValidator.enableValidation();
-
-editButton.addEventListener('click', openEditPopup);
-addButton.addEventListener('click', openAddCardPopup);
+// слушаем кнопки
+buttonEdit.addEventListener('click', openEditPopup);
+buttonAdd.addEventListener('click', openAddCardPopup);
 formEdit.addEventListener('submit', handleProfileFormSubmit);
 formAddCard.addEventListener('submit', addCard);
 
