@@ -23,7 +23,7 @@ export class Card {
     this._element = this._getTemplate();
     this._setEventListeners();
     this._element.querySelector('.card__img').src = this._link;
-    this._element.querySelector('.card__img').alt = this._link;
+    this._element.querySelector('.card__img').alt = `Место: ${this._name}`;
     this._element.querySelector('.card__place').textContent = this._name;
     return this._element;
   }
