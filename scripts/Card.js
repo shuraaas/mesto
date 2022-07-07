@@ -38,19 +38,6 @@ export class Card {
     card.remove();
   }
 
-  // _handleOpenPopup() {
-  //   popupImgElement.src = this._link;
-  //   popupImgElement.alt = this._name;
-  //   popupImgNameElement.textContent = this._name;
-  //   zoomImgPopup.classList.add('popup_opened');
-  //   document.addEventListener('keydown', closeByEscape);
-  // }
-
-  // _handleClosePopup() {
-  //   popupImage.src = '';
-  //   popupElement.classList.remove('popup_is-opened');
-  // }
-
   // ставим все слушатели на карточку
   _setEventListeners() {
     this._element.querySelector('.card__img').addEventListener('click', () => openZoomImgPopup(this._link, this._name));
