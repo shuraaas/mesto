@@ -1,6 +1,7 @@
 import {initialCards, settings} from './values.js';
 import {Card} from './Card.js';
 import {FormValidator} from './FormValidator.js';
+import {Section} from './Section.js';
 
 const page = document.querySelector('.page');
 // кнопки
@@ -16,7 +17,9 @@ const profileName = page.querySelector('.profile__name');
 const profileJob = page.querySelector('.profile__job');
 
 // контейрер для карточек
-const cardsListElement = page.querySelector('.cards__list');
+// const cardsListSelector = page.querySelector('.cards__list');
+const cardsListSelector = '.cards__list';
+
 
 // формы
 const formEdit = page.querySelector('.form_type_edit');
@@ -36,22 +39,35 @@ const popupImgElement = popupTypeZoom.querySelector('.popup__img');
 const popupImgNameElement = popupTypeZoom.querySelector('.popup__img-name');
 
 
+
+// рисуем начальные карточки из массива с данными
+const defaultCardList = new Section({
+  items: initialCards,
+  renderer: (item) => {
+    const card = new Card(item, '.card-template');
+    const cardElement = card.generateCard();
+    defaultCardList.addItem(cardElement);
+  }
+}, cardsListSelector);
+defaultCardList.renderItems();
+
+
 // отрисовка начальных карточек
-function renderList(data) {
-  data.forEach((item) => renderCardContainer(createCard(item, '.card-template')));
-}
+// function renderList(data) {
+//   data.forEach((item) => renderCardContainer(createCard(item, '.card-template')));
+// }
 
 // вставка каточек в контейнер
-function renderCardContainer(item) {
-  return cardsListElement.prepend(item);
-}
+// function renderCardContainer(item) {
+//   return cardsListSelector.prepend(item);
+// }
 
 // создание карточки
-function createCard(data, cardSelector) {
-  const card = new Card(data, cardSelector);
+// function createCard(data, cardSelector) {
+//   const card = new Card(data, cardSelector);
 
-  return card.generateCard();
-}
+//   return card.generateCard();
+// }
 
 // открытие любого попапа
 function openPopup(popup) {
@@ -97,7 +113,17 @@ function addCard(evt) {
   const name = placeNameInput.value;
   const link = urlPlaceInput.value;
 
-  renderCardContainer(createCard({name, link}, '.card-template'));
+  const newCard = new Section({
+    items: [{ name, link }],
+    renderer: (item) => {
+      const card = new Card(item, '.card-template');
+      const cardElement = card.generateCard();
+      newCard.addItem(cardElement);
+    }
+  }, cardsListSelector);
+  newCard.renderItems();
+
+  // renderCardContainer(createCard({name, link}, '.card-template'));
   closePopup(popupTypeAdd);
 }
 
@@ -120,7 +146,7 @@ function closeByEscape(evt) {
 }
 
 // добавляем изначально 6 карточек
-renderList(initialCards);
+// renderList(initialCards);
 
 // валидируем формы при загрузке страницы
 formEditValidator.enableValidation();
