@@ -3,6 +3,7 @@ import { Card } from './Card.js';
 import { FormValidator } from './FormValidator.js';
 import { Section } from './Section.js';
 import { Popup } from './Popup.js';
+import { PopupWithImage } from './PopupWithImage.js';
 
 const page = document.querySelector('.page');
 // кнопки
@@ -12,7 +13,7 @@ const buttonAdd = page.querySelector('.btn_type_add');
 // попапы
 const popupTypeEdit = new Popup('.popup_type_edit');
 const popupTypeAdd = new Popup('.popup_type_new-card');
-const popupTypeZoom = new Popup('.popup_type_zoom-img');
+const popupTypeZoom = new PopupWithImage('.popup_type_zoom-img');
 
 const profileName = page.querySelector('.profile__name');
 const profileJob = page.querySelector('.profile__job');
@@ -64,11 +65,7 @@ function openAddCardPopup() {
 
 // открытие попапа просмотра карточки
 export function openZoomImgPopup(link, name) {
-  popupTypeZoom.open();
-
-  // popupImgElement.src = link;
-  // popupImgElement.alt = name;
-  // popupImgNameElement.textContent = name;
+  popupTypeZoom.open(link, name);
 }
 
 // добавление новой карточки
