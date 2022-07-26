@@ -4,6 +4,11 @@ import { FormValidator } from './FormValidator.js';
 import { Section } from './Section.js';
 import { Popup } from './Popup.js';
 import { PopupWithImage } from './PopupWithImage.js';
+import { PopupWithForm } from './PopupWithForm.js';
+
+// const testForm = new PopupWithForm('.popup_type_edit');
+// console.log(testForm);
+// testForm.setEventListeners();
 
 const page = document.querySelector('.page');
 // кнопки
@@ -11,8 +16,36 @@ const buttonEdit = page.querySelector('.btn_type_edit');
 const buttonAdd = page.querySelector('.btn_type_add');
 
 // попапы
-const popupTypeEdit = new Popup('.popup_type_edit');
-const popupTypeAdd = new Popup('.popup_type_new-card');
+// const popupTypeEdit = new Popup('.popup_type_edit');
+const popupTypeEdit = new PopupWithForm(
+  '.popup_type_edit',
+  (obj) => {
+    console.log(obj);
+    // const data = {
+    //   name: place,
+    //   link: link
+    // };
+  }
+);
+
+// console.log(popupTypeEdit);
+popupTypeEdit.setEventListeners();
+
+
+// const popupTypeAdd = new PopupWithForm('.popup_type_new-card');
+
+const popupTypeAdd = new PopupWithForm(
+  '.popup_type_new-card',
+  (obj) => {
+    // console.log(this);
+    addCard();
+  }
+);
+
+// console.log(popupTypeAdd);
+popupTypeAdd.setEventListeners();
+
+
 const popupTypeZoom = new PopupWithImage('.popup_type_zoom-img');
 
 const profileName = page.querySelector('.profile__name');
@@ -52,8 +85,8 @@ const defaultCardList = new Section({
 function openEditPopup() {
   popupTypeEdit.open();
 
-  nameInput.value = profileName.textContent;
-  jobInput.value = profileJob.textContent;
+  // nameInput.value = profileName.textContent;
+  // jobInput.value = profileJob.textContent;
 }
 
 // открытие попап добавления карточки
@@ -69,8 +102,8 @@ export function openZoomImgPopup(link, name) {
 }
 
 // добавление новой карточки
-function addCard(evt) {
-  evt.preventDefault();
+function addCard() {
+  // evt.preventDefault();
 
   const name = placeNameInput.value;
   const link = urlPlaceInput.value;
@@ -92,18 +125,21 @@ function addCard(evt) {
 function handleProfileFormSubmit(evt) {
   evt.preventDefault();
 
-  profileName.textContent = nameInput.value;
-  profileJob.textContent = jobInput.value;
+  // profileName.textContent = nameInput.value;
+  // profileJob.textContent = jobInput.value;
 
   popupTypeEdit.close();
 }
+
+
+
 
 // рендерим начальные карточки
 defaultCardList.renderItems();
 
 // добавляем слушатели на попапы
-popupTypeEdit.setEventListeners();
-popupTypeAdd.setEventListeners();
+// popupTypeEdit.setEventListeners();
+// popupTypeAdd.setEventListeners();
 popupTypeZoom.setEventListeners();
 
 // валидируем формы при загрузке страницы
@@ -113,5 +149,5 @@ formAddCardValidator.enableValidation();
 // слушаем кнопки
 buttonEdit.addEventListener('click', openEditPopup);
 buttonAdd.addEventListener('click', openAddCardPopup);
-formEdit.addEventListener('submit', handleProfileFormSubmit);
-formAddCard.addEventListener('submit', addCard);
+// formEdit.addEventListener('submit', handleProfileFormSubmit);
+// formAddCard.addEventListener('submit', addCard);
