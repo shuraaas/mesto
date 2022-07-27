@@ -5,51 +5,43 @@ import { Section } from './Section.js';
 import { Popup } from './Popup.js';
 import { PopupWithImage } from './PopupWithImage.js';
 import { PopupWithForm } from './PopupWithForm.js';
-
-// const testForm = new PopupWithForm('.popup_type_edit');
-// console.log(testForm);
-// testForm.setEventListeners();
+import { UserInfo } from './UserInfo.js';
 
 const page = document.querySelector('.page');
 // кнопки
 const buttonEdit = page.querySelector('.btn_type_edit');
 const buttonAdd = page.querySelector('.btn_type_add');
 
+const profileNameSelector = '.profile__name';
+const profileJobSelector = '.profile__job';
+// const profileName = page.querySelector('.profile__name');
+// const profileJob = page.querySelector('.profile__job');
+
+// const nameInput = formEdit.querySelector('.form__input_type_name');
+// const jobInput = formEdit.querySelector('.form__input_type_job');
+const userName = '.form__input_type_name';
+const userJob = '.form__input_type_job';
+
+const userInfo = new UserInfo({ profileNameSelector, profileJobSelector });
+
 // попапы
 // const popupTypeEdit = new Popup('.popup_type_edit');
 const popupTypeEdit = new PopupWithForm(
   '.popup_type_edit',
-  (obj) => {
-    console.log(obj);
-    // const data = {
-    //   name: place,
-    //   link: link
-    // };
+  (data) => {
+    userInfo.setUserInfo(data);
   }
 );
 
-// console.log(popupTypeEdit);
-popupTypeEdit.setEventListeners();
-
-
 // const popupTypeAdd = new PopupWithForm('.popup_type_new-card');
-
 const popupTypeAdd = new PopupWithForm(
   '.popup_type_new-card',
   (obj) => {
-    // console.log(this);
     addCard();
   }
 );
 
-// console.log(popupTypeAdd);
-popupTypeAdd.setEventListeners();
-
-
 const popupTypeZoom = new PopupWithImage('.popup_type_zoom-img');
-
-const profileName = page.querySelector('.profile__name');
-const profileJob = page.querySelector('.profile__job');
 
 // контейрер для карточек
 const cardsListSelector = '.cards__list';
@@ -58,8 +50,8 @@ const cardsListSelector = '.cards__list';
 const formEdit = page.querySelector('.form_type_edit');
 const formAddCard = page.querySelector('.form_type_add-card');
 
-const nameInput = formEdit.querySelector('.form__input_type_name');
-const jobInput = formEdit.querySelector('.form__input_type_job');
+// const nameInput = formEdit.querySelector('.form__input_type_name');
+// const jobInput = formEdit.querySelector('.form__input_type_job');
 const placeNameInput = formAddCard.querySelector('.form__input_type_place-name');
 const urlPlaceInput = formAddCard.querySelector('.form__input_type_url');
 
@@ -84,6 +76,8 @@ const defaultCardList = new Section({
 // открытие попап редактирования
 function openEditPopup() {
   popupTypeEdit.open();
+
+  userInfo.setUserInfo(userInfo.getUserInfo());
 
   // nameInput.value = profileName.textContent;
   // jobInput.value = profileJob.textContent;
@@ -137,14 +131,17 @@ function handleProfileFormSubmit(evt) {
 // рендерим начальные карточки
 defaultCardList.renderItems();
 
-// добавляем слушатели на попапы
-// popupTypeEdit.setEventListeners();
-// popupTypeAdd.setEventListeners();
-popupTypeZoom.setEventListeners();
-
 // валидируем формы при загрузке страницы
 formEditValidator.enableValidation();
 formAddCardValidator.enableValidation();
+
+
+// Слушатели -----
+
+// добавляем слушатели на попапы
+popupTypeEdit.setEventListeners();
+popupTypeAdd.setEventListeners();
+popupTypeZoom.setEventListeners();
 
 // слушаем кнопки
 buttonEdit.addEventListener('click', openEditPopup);

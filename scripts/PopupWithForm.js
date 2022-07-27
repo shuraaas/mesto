@@ -14,11 +14,8 @@ export class PopupWithForm extends Popup {
     this.inputValues = {};
 
     this._inputList.forEach((input) => {
-      // this.inputValues[input.id] = input.value;
       this.inputValues[input.name] = input.value;
     });
-
-    // console.log(this.inputValues);
 
     return this.inputValues;
   }
@@ -35,11 +32,9 @@ export class PopupWithForm extends Popup {
     super.setEventListeners();
 
     this._form.addEventListener("submit", (evt) => {
-      // console.log('sdsd')
-      // TODO: превент дефолт возможно вешается дважды
       evt.preventDefault();
-      // console.log(this._getInputValues())
       this._handleFormSubmit(this._getInputValues());
+      this.close();
     });
   }
 }
