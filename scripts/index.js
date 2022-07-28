@@ -1,11 +1,11 @@
 import { initialCards, settings } from './values.js';
-import { Card } from './Card.js';
-import { FormValidator } from './FormValidator.js';
-import { Section } from './Section.js';
-import { Popup } from './Popup.js';
-import { PopupWithImage } from './PopupWithImage.js';
-import { PopupWithForm } from './PopupWithForm.js';
-import { UserInfo } from './UserInfo.js';
+import Card from './Card.js';
+import FormValidator from './FormValidator.js';
+import Section from './Section.js';
+// import Popup from './Popup.js';
+import PopupWithImage from './PopupWithImage.js';
+import PopupWithForm from './PopupWithForm.js';
+import UserInfo from './UserInfo.js';
 
 const page = document.querySelector('.page');
 // кнопки
@@ -25,21 +25,37 @@ const userJob = '.form__input_type_job';
 const userInfo = new UserInfo({ profileNameSelector, profileJobSelector });
 
 // попапы
-// const popupTypeEdit = new Popup('.popup_type_edit');
-const popupTypeEdit = new PopupWithForm(
-  '.popup_type_edit',
-  (data) => {
+// const popupTypeEdit = new PopupWithForm(
+//   '.popup_type_edit',
+//   (data) => {
+//     userInfo.setUserInfo(data);
+//   }
+// );
+const popupTypeEdit = new PopupWithForm({
+  popupSelector: '.popup_type_edit',
+  handleFormSubmit: (data) => {
     userInfo.setUserInfo(data);
+  },
+  handleFormPrefill: (inputs) => {
+    const values = userInfo.getUserInfo();
+    // console.log(inputs);
+    inputs.forEach(input => input.value = values[input.name]);
   }
-);
+});
 
 // const popupTypeAdd = new PopupWithForm('.popup_type_new-card');
-const popupTypeAdd = new PopupWithForm(
-  '.popup_type_new-card',
-  (obj) => {
+// const popupTypeAdd = new PopupWithForm(
+//   '.popup_type_new-card',
+//   () => {
+//     addCard();
+//   }
+// );
+const popupTypeAdd = new PopupWithForm({
+  popupSelector: '.popup_type_new-card',
+  handleFormSubmit: () => {
     addCard();
   }
-);
+});
 
 const popupTypeZoom = new PopupWithImage('.popup_type_zoom-img');
 
@@ -116,14 +132,14 @@ function addCard() {
 }
 
 // при нажитии кнопки сохранить
-function handleProfileFormSubmit(evt) {
-  evt.preventDefault();
+// function handleProfileFormSubmit(evt) {
+//   evt.preventDefault();
 
-  // profileName.textContent = nameInput.value;
-  // profileJob.textContent = jobInput.value;
+//   // profileName.textContent = nameInput.value;
+//   // profileJob.textContent = jobInput.value;
 
-  popupTypeEdit.close();
-}
+//   popupTypeEdit.close();
+// }
 
 
 
