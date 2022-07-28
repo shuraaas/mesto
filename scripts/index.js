@@ -2,7 +2,6 @@ import { initialCards, settings } from './values.js';
 import Card from './Card.js';
 import FormValidator from './FormValidator.js';
 import Section from './Section.js';
-// import Popup from './Popup.js';
 import PopupWithImage from './PopupWithImage.js';
 import PopupWithForm from './PopupWithForm.js';
 import UserInfo from './UserInfo.js';
@@ -25,12 +24,6 @@ const userJob = '.form__input_type_job';
 const userInfo = new UserInfo({ profileNameSelector, profileJobSelector });
 
 // попапы
-// const popupTypeEdit = new PopupWithForm(
-//   '.popup_type_edit',
-//   (data) => {
-//     userInfo.setUserInfo(data);
-//   }
-// );
 const popupTypeEdit = new PopupWithForm({
   popupSelector: '.popup_type_edit',
   handleFormSubmit: (data) => {
@@ -38,18 +31,10 @@ const popupTypeEdit = new PopupWithForm({
   },
   handleFormPrefill: (inputs) => {
     const values = userInfo.getUserInfo();
-    // console.log(inputs);
     inputs.forEach(input => input.value = values[input.name]);
   }
 });
 
-// const popupTypeAdd = new PopupWithForm('.popup_type_new-card');
-// const popupTypeAdd = new PopupWithForm(
-//   '.popup_type_new-card',
-//   () => {
-//     addCard();
-//   }
-// );
 const popupTypeAdd = new PopupWithForm({
   popupSelector: '.popup_type_new-card',
   handleFormSubmit: () => {
@@ -75,15 +60,17 @@ const urlPlaceInput = formAddCard.querySelector('.form__input_type_url');
 const formEditValidator = new FormValidator(settings, formEdit);
 const formAddCardValidator = new FormValidator(settings, formAddCard);
 
-// элементы попапа открытия карточек
-// const popupImgElement = popupTypeZoom.querySelector('.popup__img');
-// const popupImgNameElement = popupTypeZoom.querySelector('.popup__img-name');
-
 // рисуем начальные карточки из массива с данными
 const defaultCardList = new Section({
   items: initialCards,
-  renderer: (item) => {
-    const card = new Card(item, '.card-template');
+  renderer: ({ name, link }) => {
+    const card = new Card({
+      data: { name, link },
+      cardSelector: '.card-template',
+      handleCardClick: (link, name) => {
+        popupTypeZoom.open(link, name);
+      }
+    });
     const cardElement = card.generateCard();
     defaultCardList.addItem(cardElement);
   }
@@ -92,11 +79,7 @@ const defaultCardList = new Section({
 // открытие попап редактирования
 function openEditPopup() {
   popupTypeEdit.open();
-
   userInfo.setUserInfo(userInfo.getUserInfo());
-
-  // nameInput.value = profileName.textContent;
-  // jobInput.value = profileJob.textContent;
 }
 
 // открытие попап добавления карточки
@@ -104,11 +87,6 @@ function openAddCardPopup() {
   formAddCard.reset();
   popupTypeAdd.open();
   formAddCardValidator.validatePopup();
-}
-
-// открытие попапа просмотра карточки
-export function openZoomImgPopup(link, name) {
-  popupTypeZoom.open(link, name);
 }
 
 // добавление новой карточки
@@ -120,8 +98,14 @@ function addCard() {
 
   const newCard = new Section({
     items: [{ name, link }],
-    renderer: (item) => {
-      const card = new Card(item, '.card-template');
+    renderer: ({ name, link }) => {
+      const card = new Card({
+        data: { name, link },
+        cardSelector: '.card-template',
+        handleCardClick: (link, name) => {
+          popupTypeZoom.open(link, name);
+        }
+      });
       const cardElement = card.generateCard();
       newCard.addItem(cardElement);
     }

@@ -1,10 +1,12 @@
-import { openZoomImgPopup } from './index.js';
+// import { openZoomImgPopup } from './index.js';
 
 export default class Card {
-  constructor(data, cardSelector) {
+  constructor({ data, cardSelector, handleCardClick} ) {
     this._name = data.name;
     this._link = data.link;
     this._cardSelector = cardSelector;
+    this._handleCardClick = handleCardClick;
+    // console.log(handleCardClick)
   }
 
   // возвращаем разметку карточки
@@ -40,7 +42,7 @@ export default class Card {
 
   // ставим все слушатели на карточку
   _setEventListeners() {
-    this._element.querySelector('.card__img').addEventListener('click', () => openZoomImgPopup(this._link, this._name));
+    this._element.querySelector('.card__img').addEventListener('click', () => this._handleCardClick(this._link, this._name));
     this._element.querySelector('.btn_type_like').addEventListener('click', () => this._likeCard(this._element));
     this._element.querySelector('.btn_type_delete').addEventListener('click', () => this._deleteCard(this._element));
   }
