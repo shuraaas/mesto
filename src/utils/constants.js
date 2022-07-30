@@ -71,5 +71,6 @@ export {
   formEdit,
   formAddCard,
   placeNameInput,
-  urlPlaceInput
+  urlPlaceInput,
+  page
 };
