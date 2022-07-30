@@ -1,25 +1,28 @@
-import { initialCards, settings } from './values.js';
-import Card from './Card.js';
-import FormValidator from './FormValidator.js';
-import Section from './Section.js';
-import PopupWithImage from './PopupWithImage.js';
-import PopupWithForm from './PopupWithForm.js';
-import UserInfo from './UserInfo.js';
+// импортируем стили
+import './index.css';
 
-const page = document.querySelector('.page');
-// кнопки
-const buttonEdit = page.querySelector('.btn_type_edit');
-const buttonAdd = page.querySelector('.btn_type_add');
+// константы
+import {
+  initialCards,
+  settings,
+  buttonEdit,
+  buttonAdd,
+  profileNameSelector,
+  profileJobSelector,
+  cardsListSelector,
+  formEdit,
+  formAddCard,
+  placeNameInput,
+  urlPlaceInput
+} from '../utils/constants.js';
 
-const profileNameSelector = '.profile__name';
-const profileJobSelector = '.profile__job';
-// const profileName = page.querySelector('.profile__name');
-// const profileJob = page.querySelector('.profile__job');
-
-// const nameInput = formEdit.querySelector('.form__input_type_name');
-// const jobInput = formEdit.querySelector('.form__input_type_job');
-const userName = '.form__input_type_name';
-const userJob = '.form__input_type_job';
+// классы
+import Card from '../components/Card.js';
+import FormValidator from '../components/FormValidator.js';
+import Section from '../components/Section.js';
+import PopupWithImage from '../components/PopupWithImage.js';
+import PopupWithForm from '../components/PopupWithForm.js';
+import UserInfo from '../components/UserInfo.js';
 
 const userInfo = new UserInfo({ profileNameSelector, profileJobSelector });
 
@@ -43,18 +46,6 @@ const popupTypeAdd = new PopupWithForm({
 });
 
 const popupTypeZoom = new PopupWithImage('.popup_type_zoom-img');
-
-// контейрер для карточек
-const cardsListSelector = '.cards__list';
-
-// формы
-const formEdit = page.querySelector('.form_type_edit');
-const formAddCard = page.querySelector('.form_type_add-card');
-
-// const nameInput = formEdit.querySelector('.form__input_type_name');
-// const jobInput = formEdit.querySelector('.form__input_type_job');
-const placeNameInput = formAddCard.querySelector('.form__input_type_place-name');
-const urlPlaceInput = formAddCard.querySelector('.form__input_type_url');
 
 // для каждой формы свой экземпляр класса
 const formEditValidator = new FormValidator(settings, formEdit);
@@ -91,8 +82,6 @@ function openAddCardPopup() {
 
 // добавление новой карточки
 function addCard() {
-  // evt.preventDefault();
-
   const name = placeNameInput.value;
   const link = urlPlaceInput.value;
 
@@ -115,19 +104,6 @@ function addCard() {
   popupTypeAdd.close();
 }
 
-// при нажитии кнопки сохранить
-// function handleProfileFormSubmit(evt) {
-//   evt.preventDefault();
-
-//   // profileName.textContent = nameInput.value;
-//   // profileJob.textContent = jobInput.value;
-
-//   popupTypeEdit.close();
-// }
-
-
-
-
 // рендерим начальные карточки
 defaultCardList.renderItems();
 
@@ -135,16 +111,11 @@ defaultCardList.renderItems();
 formEditValidator.enableValidation();
 formAddCardValidator.enableValidation();
 
-
 // Слушатели -----
-
 // добавляем слушатели на попапы
 popupTypeEdit.setEventListeners();
 popupTypeAdd.setEventListeners();
 popupTypeZoom.setEventListeners();
-
 // слушаем кнопки
 buttonEdit.addEventListener('click', openEditPopup);
 buttonAdd.addEventListener('click', openAddCardPopup);
-// formEdit.addEventListener('submit', handleProfileFormSubmit);
-// formAddCard.addEventListener('submit', addCard);

@@ -1,0 +1,38 @@
+{
+  "name": "yandex_praktikum",
+  "version": "0.0.1",
+  "description": "«Место» — веб-страница с галереей фотографий, с которой можно взаимодействовать:\r поменять имя и описание страницы, добавить новые и удалить существующие карточки, поставить лайк на карточку, развернуть картинку карточки на полный экран. Реализована клиентская валидация форм, улучшен UX при работе с попапами. В этой проектной работе переписали часть кода по принципам ООП.",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack --mode production",
+    "dev": "webpack serve"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shuraaas/mesto.git"
+  },
+  "author": "Alexandr Perunov",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/shuraaas/mesto/issues"
+  },
+  "homepage": "https://github.com/shuraaas/mesto#readme",
+  "devDependencies": {
+    "@babel/core": "^7.18.9",
+    "@babel/preset-env": "^7.18.9",
+    "autoprefixer": "^10.4.8",
+    "babel-loader": "^8.2.5",
+    "clean-webpack-plugin": "^4.0.0",
+    "css-loader": "^6.7.1",
+    "cssnano": "^5.1.12",
+    "html-webpack-plugin": "^5.5.0",
+    "mini-css-extract-plugin": "^2.6.1",
+    "postcss-loader": "^7.0.1",
+    "webpack": "^5.74.0",
+    "webpack-cli": "^4.10.0",
+    "webpack-dev-server": "^4.9.3"
+  },
+  "dependencies": {
+    "core-js": "^3.24.1"
+  }
+}

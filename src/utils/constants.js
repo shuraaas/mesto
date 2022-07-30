@@ -1,5 +1,5 @@
 // 6 карточек при открытии страницы
-export const initialCards = [
+const initialCards = [
   {
     name: 'Архыз',
     link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
@@ -27,7 +27,7 @@ export const initialCards = [
 ];
 
 // Объект настроек формы
-export const settings = {
+const settings = {
   // селектор класса формы
   formSelector: '.form',
   // селектор поля ввода формы
@@ -40,4 +40,36 @@ export const settings = {
   inputErrorClass: 'form__input_type_error',
   // класс подсказки ошибки
   errorClass: 'form__input-error_active'
+};
+
+const page = document.querySelector('.page');
+// кнопки
+const buttonEdit = page.querySelector('.btn_type_edit');
+const buttonAdd = page.querySelector('.btn_type_add');
+
+const profileNameSelector = '.profile__name';
+const profileJobSelector = '.profile__job';
+
+// контейрер для карточек
+const cardsListSelector = '.cards__list';
+
+// формы
+const formEdit = page.querySelector('.form_type_edit');
+const formAddCard = page.querySelector('.form_type_add-card');
+
+const placeNameInput = formAddCard.querySelector('.form__input_type_place-name');
+const urlPlaceInput = formAddCard.querySelector('.form__input_type_url');
+
+export {
+  initialCards,
+  settings,
+  buttonEdit,
+  buttonAdd,
+  profileNameSelector,
+  profileJobSelector,
+  cardsListSelector,
+  formEdit,
+  formAddCard,
+  placeNameInput,
+  urlPlaceInput
 };

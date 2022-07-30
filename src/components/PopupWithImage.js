@@ -13,7 +13,6 @@ export default class PopupWithImage extends Popup {
     this._popupImgElement.alt = name;
     this._popupImgNameElement.textContent = name;
 
-    // вызываем родительский метод
     super.open();
   }
 }

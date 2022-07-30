@@ -6,7 +6,6 @@ export default class PopupWithForm extends Popup {
     this._handleFormSubmit = handleFormSubmit;
     this._handleFormPrefill = handleFormPrefill;
     this._form = this._popup.querySelector('.form');
-    // this._buttonFormSubmit = this._popup.querySelector('.btn_type_save');
     this._inputList = this._popup.querySelectorAll('.form__input');
   }
 
@@ -25,25 +24,20 @@ export default class PopupWithForm extends Popup {
     if(this._handleFormPrefill) {
       this._handleFormPrefill(this._inputList);
     }
-
     super.open();
   }
 
   close() {
-    // вызываем родительский метод
     super.close();
-    // сбрасываем форму
     this._form.reset();
   }
 
   setEventListeners() {
-    // вызываем родительский метод
     super.setEventListeners();
 
     this._form.addEventListener("submit", (evt) => {
       evt.preventDefault();
       this._handleFormSubmit(this._getInputValues());
-      // this._handleFormPrefill();
       this.close();
     });
   }
