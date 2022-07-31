@@ -4,6 +4,9 @@ export default class Card {
     this._link = data.link;
     this._cardSelector = cardSelector;
     this._handleCardClick = handleCardClick;
+    this._element = this._getTemplate();
+    this._cardImageElement = this._element.querySelector('.card__img');
+    this._cardDescriptionElement = this._element.querySelector('.card__place');
   }
 
   // возвращаем разметку карточки
@@ -19,11 +22,10 @@ export default class Card {
 
   // генерируем карточку
   generateCard() {
-    this._element = this._getTemplate();
     this._setEventListeners();
-    this._element.querySelector('.card__img').src = this._link;
-    this._element.querySelector('.card__img').alt = `Место: ${this._name}`;
-    this._element.querySelector('.card__place').textContent = this._name;
+    this._cardImageElement.src = this._link;
+    this._cardImageElement.alt = `Место: ${this._name}`;
+    this._cardDescriptionElement.textContent = this._name;
     return this._element;
   }
 
@@ -35,6 +37,7 @@ export default class Card {
   // удаление карточки
   _deleteCard(card) {
     card.remove();
+    card = null;
   }
 
   // ставим все слушатели на карточку
