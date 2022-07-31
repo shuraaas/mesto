@@ -13,7 +13,8 @@ import {
   formEdit,
   formAddCard,
   placeNameInput,
-  urlPlaceInput
+  urlPlaceInput,
+  cardSelector
 } from '../utils/constants.js';
 
 // классы
@@ -51,61 +52,47 @@ const popupTypeZoom = new PopupWithImage('.popup_type_zoom-img');
 const formEditValidator = new FormValidator(settings, formEdit);
 const formAddCardValidator = new FormValidator(settings, formAddCard);
 
+// создание новой карточки
+const createCard = ({ name, link }) => {
+  const card = new Card({
+    data: { name, link },
+    cardSelector: cardSelector,
+    handleCardClick: (link, name) => popupTypeZoom.open(link, name)
+  });
+
+  return card.generateCard();
+}
+
 // рисуем начальные карточки из массива с данными
-const defaultCardList = new Section({
+const cardList = new Section({
   items: initialCards,
-  renderer: ({ name, link }) => {
-    const card = new Card({
-      data: { name, link },
-      cardSelector: '.card-template',
-      handleCardClick: (link, name) => {
-        popupTypeZoom.open(link, name);
-      }
-    });
-    const cardElement = card.generateCard();
-    defaultCardList.addItem(cardElement);
-  }
+  renderer: ({ name, link }) => cardList.addItem(createCard({ name, link }))
 }, cardsListSelector);
 
 // открытие попап редактирования
-function openEditPopup() {
+const openEditPopup = () => {
   popupTypeEdit.open();
   userInfo.setUserInfo(userInfo.getUserInfo());
 }
 
 // открытие попап добавления карточки
-function openAddCardPopup() {
+const openAddCardPopup = () => {
   formAddCard.reset();
   popupTypeAdd.open();
   formAddCardValidator.validatePopup();
 }
 
 // добавление новой карточки
-function addCard() {
+const addCard = () => {
   const name = placeNameInput.value;
   const link = urlPlaceInput.value;
 
-  const newCard = new Section({
-    items: [{ name, link }],
-    renderer: ({ name, link }) => {
-      const card = new Card({
-        data: { name, link },
-        cardSelector: '.card-template',
-        handleCardClick: (link, name) => {
-          popupTypeZoom.open(link, name);
-        }
-      });
-      const cardElement = card.generateCard();
-      newCard.addItem(cardElement);
-    }
-  }, cardsListSelector);
-  newCard.renderItems();
-
+  cardList.addItem(createCard({ name, link }));
   popupTypeAdd.close();
 }
 
 // рендерим начальные карточки
-defaultCardList.renderItems();
+cardList.renderItems();
 
 // валидируем формы при загрузке страницы
 formEditValidator.enableValidation();

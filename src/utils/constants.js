@@ -60,6 +60,9 @@ const formAddCard = page.querySelector('.form_type_add-card');
 const placeNameInput = formAddCard.querySelector('.form__input_type_place-name');
 const urlPlaceInput = formAddCard.querySelector('.form__input_type_url');
 
+// шаблон карточки
+const cardSelector = '.card-template';
+
 export {
   initialCards,
   settings,
@@ -72,5 +75,6 @@ export {
   formAddCard,
   placeNameInput,
   urlPlaceInput,
-  page
+  page,
+  cardSelector
 };
