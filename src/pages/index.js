@@ -24,8 +24,22 @@ import Section from '../components/Section.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 import UserInfo from '../components/UserInfo.js';
+import Api from '../components/Api.js';
+
+const api = new Api({
+  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-48/',
+  headers: {
+    authorization: '1a0fcad2-374c-4a16-bc60-ad5ac7325d61',
+    'Content-Type': 'application/json'
+  }
+});
 
 const userInfo = new UserInfo({ profileNameSelector, profileJobSelector });
+
+// вставляем имя и описание профиля с сервера при загрузке страницы
+api.getUserInfo().then(data => {
+  userInfo.setUserInfo(data);
+});
 
 // попапы
 const popupTypeEdit = new PopupWithForm({
