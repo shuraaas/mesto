@@ -6,6 +6,7 @@ export default class Api {
     // console.log(this._headers.authorization);
   }
 
+  // запрашиваем инфу о пользователе с сервера (аватар, имя, описание)
   getUserInfo() {
     return fetch(`${this._url}users/me`,
       {
@@ -20,18 +21,13 @@ export default class Api {
 
         // если ошибка, отклоняем промис
         return Promise.reject(`Ошибка: ${res.status}`);
+      })
+      .catch((err) => {
+        console.log(err); // выведем ошибку в консоль
       });
-      // .then(data => {
-
-      //   console.log(data)
-      //   // return data;
-      // });
   }
 
-  // setUserInfo() {
-  //   console.log(this.getUserInfo());
-  // }
-
+  // запрашиваем начальные карточки с сервера
   getInitialCards() {
     return fetch(`${this._url}cards`,
       {
@@ -46,7 +42,9 @@ export default class Api {
 
         // если ошибка, отклоняем промис
         return Promise.reject(`Ошибка: ${res.status}`);
+      })
+      .catch((err) => {
+        console.log(err); // выведем ошибку в консоль
       });
-      // .then(data => console.log(data));
   }
 }

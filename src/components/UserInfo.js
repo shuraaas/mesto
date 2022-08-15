@@ -13,6 +13,7 @@ export default class UserInfo {
     return user;
   }
 
+  // TODO: доделаь тут чтобы еще аватарка пользователя с сервера загружалась
   setUserInfo(userData) {
     this._userName.textContent = userData.name;
     this._userJob.textContent = userData.about ? userData.about : userData.job;

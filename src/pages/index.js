@@ -3,7 +3,6 @@ import './index.css';
 
 // константы
 import {
-  initialCards,
   settings,
   buttonEdit,
   buttonAdd,
@@ -36,10 +35,13 @@ const api = new Api({
 
 const userInfo = new UserInfo({ profileNameSelector, profileJobSelector });
 
+// TODO: тут возможно надо переместить это в другое место
 // вставляем имя и описание профиля с сервера при загрузке страницы
-api.getUserInfo().then(data => {
-  userInfo.setUserInfo(data);
-});
+api.getUserInfo()
+  .then(data => {
+    userInfo.setUserInfo(data);
+  })
+  .catch(err => console.error(err));
 
 // попапы
 const popupTypeEdit = new PopupWithForm({
@@ -79,7 +81,7 @@ const createCard = ({ name, link }) => {
 
 // рисуем начальные карточки из массива с данными
 const cardList = new Section({
-  items: initialCards,
+  items: api.getInitialCards(),
   renderer: ({ name, link }) => cardList.addItem(createCard({ name, link }))
 }, cardsListSelector);
 
