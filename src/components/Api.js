@@ -6,45 +6,49 @@ export default class Api {
     // console.log(this._headers.authorization);
   }
 
+  // проверяем рузультат запроса
+  _checkResult = (res) => {
+    if (res.ok) {
+      return res.json();
+    }
+
+    // если ошибка, отклоняем промис
+    return Promise.reject(`Ошибка: ${res.status}`);
+  }
+
   // запрашиваем инфу о пользователе с сервера (аватар, имя, описание)
   getUserInfo() {
-    return fetch(`${this._url}users/me`,
-      {
+    return fetch(`${this._url}users/me`, {
         headers: {
           authorization: this._headers.authorization
         }
       })
-      .then(res => {
-        if (res.ok) {
-          return res.json();
-        }
+      .then(this._checkResult);
+  }
 
-        // если ошибка, отклоняем промис
-        return Promise.reject(`Ошибка: ${res.status}`);
+  //  сохраняем отредактированные данные профиля на сервере
+  setUserInfo(userData) {
+    return fetch(`${this._url}users/me`, {
+      method: 'PATCH',
+      headers: {
+        authorization: this._headers.authorization,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        name: userData.name,
+        about: userData.job
       })
-      .catch((err) => {
-        console.log(err); // выведем ошибку в консоль
-      });
+    })
+    .then(this._checkResult);
   }
 
   // запрашиваем начальные карточки с сервера
   getInitialCards() {
-    return fetch(`${this._url}cards`,
-      {
+    return fetch(`${this._url}cards`, {
         headers: {
           authorization: this._headers.authorization
         }
       })
-      .then(res => {
-        if (res.ok) {
-          return res.json();
-        }
-
-        // если ошибка, отклоняем промис
-        return Promise.reject(`Ошибка: ${res.status}`);
-      })
-      .catch((err) => {
-        console.log(err); // выведем ошибку в консоль
-      });
+      .then(this._checkResult);
   }
 }

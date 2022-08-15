@@ -47,6 +47,7 @@ api.getUserInfo()
 const popupTypeEdit = new PopupWithForm({
   popupSelector: '.popup_type_edit',
   handleFormSubmit: (data) => {
+    api.setUserInfo(data);
     userInfo.setUserInfo(data);
   },
   handleFormPrefill: (inputs) => {
