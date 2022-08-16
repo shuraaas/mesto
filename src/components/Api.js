@@ -51,4 +51,20 @@ export default class Api {
       })
       .then(this._checkResult);
   }
+
+  // загружаем новую карточку на сервер
+  setNewCard({ name, link }) {
+    return fetch(`${this._url}cards`, {
+      method: 'POST',
+      headers: {
+        authorization: this._headers.authorization,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        name: name,
+        link: link
+      })
+    })
+    .then(this._checkResult);
+  }
 }

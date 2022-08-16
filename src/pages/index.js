@@ -104,6 +104,9 @@ const addCard = () => {
   const name = placeNameInput.value;
   const link = urlPlaceInput.value;
 
+  // отправляем карточку на сервер
+  api.setNewCard({ name, link });
+
   cardList.addItem(createCard({ name, link }));
   popupTypeAdd.close();
 }
