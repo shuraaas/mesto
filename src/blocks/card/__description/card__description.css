@@ -1,7 +1,13 @@
 .card__description {
-  padding: 25px 20px;
-  display: flex;
-  justify-content: space-between;
+  padding: 20px;
+  /* TODO: тут может что-нибудь получше придумать вместо минимальной высоты */
+  min-height: 38px;
+  display: grid;
+  grid-template-columns: auto 22px;
+  row-gap: 3px;
   align-items: center;
+  grid-template-areas:
+    "name like"
+    "name counter";
   background: #fff;
 }

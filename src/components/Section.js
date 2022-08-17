@@ -1,6 +1,9 @@
 // Класс отвечает за отрисовку элементов на странице
 export default class Section {
   constructor({ items, renderer }, containerSelector) {
+
+    // console.log(items)
+
     this._renderedItems = items;
     this._renderer = renderer;
     this._container = document.querySelector(containerSelector);

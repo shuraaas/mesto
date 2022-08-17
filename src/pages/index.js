@@ -70,34 +70,34 @@ const formEditValidator = new FormValidator(settings, formEdit);
 const formAddCardValidator = new FormValidator(settings, formAddCard);
 
 // создание новой карточки
-const createCard = ({ name, link }) => {
+const createCard = ({ name, link, likes }) => {
   const card = new Card({
-    data: { name, link },
+    data: { name, link, likes },
     cardSelector: cardSelector,
     handleCardClick: (link, name) => popupTypeZoom.open(link, name)
   });
 
   return card.generateCard();
-}
+};
 
 // рисуем начальные карточки из массива с данными
 const cardList = new Section({
   items: api.getInitialCards(),
-  renderer: ({ name, link }) => cardList.addItem(createCard({ name, link }))
+  renderer: ({ name, link, likes }) => cardList.addItem(createCard({ name, link, likes }))
 }, cardsListSelector);
 
 // открытие попап редактирования
 const openEditPopup = () => {
   popupTypeEdit.open();
   userInfo.setUserInfo(userInfo.getUserInfo());
-}
+};
 
 // открытие попап добавления карточки
 const openAddCardPopup = () => {
   formAddCard.reset();
   popupTypeAdd.open();
   formAddCardValidator.validatePopup();
-}
+};
 
 // добавление новой карточки
 const addCard = () => {
@@ -107,9 +107,10 @@ const addCard = () => {
   // отправляем карточку на сервер
   api.setNewCard({ name, link });
 
+  // cardList.addItem(createCard({ name, link, likes }));
   cardList.addItem(createCard({ name, link }));
   popupTypeAdd.close();
-}
+};
 
 // рендерим начальные карточки
 cardList.renderItems();
