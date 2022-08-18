@@ -9,6 +9,7 @@
 @import url(../blocks/btn/_type/btn_type_close.css);
 @import url(../blocks/btn/_type/btn_type_save.css);
 @import url(../blocks/btn/_type/btn_type_delete.css);
+@import url(../blocks/btn/_type/btn_type_yes.css);
 @import url(../blocks/btn/_inactive/btn_inactive.css);
 
 @import url(../blocks/page/page.css);

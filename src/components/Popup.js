@@ -4,7 +4,7 @@ import { page } from '../utils/constants.js';
 export default class Popup {
   constructor(popupSelector) {
     this._popup = document.querySelector(popupSelector);
-    this._boundHandleEscClose = this._handleEscClose.bind(this)
+    this._boundHandleEscClose = this._handleEscClose.bind(this);
   }
 
   // закрытие попапа по Escape
@@ -28,9 +28,8 @@ export default class Popup {
     document.removeEventListener('keydown', this._boundHandleEscClose);
   }
 
-  // добавляем слушатель клика иконке закрытия попапа
+  // добавляем слушатели попапу
   setEventListeners() {
-    // закрытие попапа по клику на оверлей и крестик
     this._popup.addEventListener('mousedown', (evt) => {
       // закрываем при клике на оверлей
       if (evt.target.classList.contains('popup_opened')) {
@@ -38,6 +37,14 @@ export default class Popup {
       }
       // закрываем при клике на крестик
       if (evt.target.classList.contains('btn_type_close')) {
+        this.close();
+      }
+      //
+      if (evt.target.classList.contains('btn_type_yes')) {
+        console.log(evt.target)
+
+
+
         this.close();
       }
     });

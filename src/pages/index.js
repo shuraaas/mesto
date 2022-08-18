@@ -24,6 +24,7 @@ import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 import UserInfo from '../components/UserInfo.js';
 import Api from '../components/Api.js';
+import Popup from '../components/Popup.js';
 
 const api = new Api({
   baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-48/',
@@ -65,6 +66,9 @@ const popupTypeAdd = new PopupWithForm({
 
 const popupTypeZoom = new PopupWithImage('.popup_type_zoom-img');
 
+const popupTypeDeleteCard = new Popup('.popup_type_delete-card');
+
+
 // для каждой формы свой экземпляр класса
 const formEditValidator = new FormValidator(settings, formEdit);
 const formAddCardValidator = new FormValidator(settings, formAddCard);
@@ -74,7 +78,11 @@ const createCard = ({ name, link, likes }) => {
   const card = new Card({
     data: { name, link, likes },
     cardSelector: cardSelector,
-    handleCardClick: (link, name) => popupTypeZoom.open(link, name)
+    handleCardClick: (link, name) => popupTypeZoom.open(link, name),
+    handleDeleteClick: (card) =>  {
+      // console.log(card);
+      popupTypeDeleteCard.open()
+    }
   });
 
   return card.generateCard();
@@ -124,6 +132,7 @@ formAddCardValidator.enableValidation();
 popupTypeEdit.setEventListeners();
 popupTypeAdd.setEventListeners();
 popupTypeZoom.setEventListeners();
+popupTypeDeleteCard.setEventListeners();
 // слушаем кнопки
 buttonEdit.addEventListener('click', openEditPopup);
 buttonAdd.addEventListener('click', openAddCardPopup);
