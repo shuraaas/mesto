@@ -4,6 +4,7 @@ import './index.css';
 // константы
 import {
   settings,
+  apiConfig,
   buttonEdit,
   buttonAdd,
   profileNameSelector,
@@ -27,13 +28,7 @@ import UserInfo from '../components/UserInfo.js';
 import Api from '../components/Api.js';
 import Popup from '../components/Popup.js';
 
-const api = new Api({
-  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-48/',
-  headers: {
-    authorization: '1a0fcad2-374c-4a16-bc60-ad5ac7325d61',
-    'Content-Type': 'application/json'
-  }
-});
+const api = new Api(apiConfig);
 
 const userInfo = new UserInfo({ profileNameSelector, profileJobSelector });
 
@@ -121,7 +116,8 @@ const createCard = (cardData) => {
       // popupTypeDeleteCard.setCardId(cardId);
       // popupTypeDeleteCard.deleteCard(cardId);
       // console.log(`cardId: ${currentCardId.id}`);
-    }
+    },
+    handleLikeClick: (status, cardId) => status ? api.setLike(cardId) : api.deleteLike(cardId)
   },
   myId);
 
@@ -130,11 +126,9 @@ const createCard = (cardData) => {
 
 
 const promiseCards = api.getInitialCards();
-// console.log(promiseCards)
 
 // рисуем начальные карточки из массива с данными
 const cardList = new Section({
-  // items: api.getInitialCards(),
   items: promiseCards,
   // renderer: ({ name, link, likes,  }) => cardList.addItem(createCard({ name, link, likes }))
   renderer: (data) => cardList.addItem(createCard(data))

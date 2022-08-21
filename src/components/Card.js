@@ -1,11 +1,17 @@
 export default class Card {
-  constructor({ data, cardSelector, handleCardClick, handleDeleteClick }, myId ) {
+  constructor({
+    data,
+    cardSelector,
+    handleCardClick, // обрабатываем клик по картинке
+    handleDeleteClick, // обрабатываем клик по иконке удаления
+    handleLikeClick // обрабатываем клик по лайку
+  }, myId ) {
 
     // console.log(data)
 
     this._name = data.name;
     this._link = data.link;
-    this._likes = data.likes;
+    this._likes = data.likes ? data.likes : 0;
     this._myId = myId.id;
 
     this._cardId = data._id;
@@ -14,6 +20,7 @@ export default class Card {
     this._cardSelector = cardSelector;
     this._handleCardClick = handleCardClick;
     this._handleDeleteClick = handleDeleteClick;
+    this._handleLikeClick = handleLikeClick;
     this._element = this._getTemplate();
     this._cardImageElement = this._element.querySelector('.card__img');
     this._cardLikeElement = this._element.querySelector('.btn_type_like');
@@ -32,6 +39,20 @@ export default class Card {
     }
   }
 
+  // проверяем перед отрисовкой карточки наличие моего лайка
+  _checkMyLikes() {
+    if (this._likes.length > 0) { // если у карточки есть хотя бы один лайк
+      this._likes.forEach(item => { // проходимся по массиву объектов лайков это карточки
+        if (item._id === this._myId) { // если id лайка мой, меняем кнопку на активную
+          this._cardLikeElement.classList.add('btn_type_like-active');
+        }
+      });
+    }
+
+    // если условие не прошло, возвращаемся
+    return;
+  }
+
   // возвращаем разметку карточки
   _getTemplate() {
     const cardElement = document
@@ -46,59 +67,70 @@ export default class Card {
   // генерируем карточку
   generateCard() {
     this._setEventListeners();
-
     this._checkCardOwner();
+    this._checkMyLikes();
 
     this._cardImageElement.src = this._link;
     this._cardImageElement.alt = `Место: ${this._name}`;
     this._cardDescriptionElement.textContent = this._name;
 
-    // console.log(this._likes);
+    // if (this._likes.length > 0) {
+    //   this._cardLikesCounterElement.textContent = this._likes.length;
+    // } else {
+    //   this._cardLikesCounterElement.textContent = '';
+    // }
 
-    if (this._likes) {
-      this._cardLikesCounterElement.textContent = this._likes.length;
-    } else {
-      this._cardLikesCounterElement.textContent = '';
-    }
+    this._cardLikesCounterElement.textContent = this._likes.length > 0 ? this._likes.length : '';
 
-    // this._cardLikesCounterElement.textContent = this._likes.length > 0 ? this._likes.length : '';
-    // this._cardLikesCounterElement.textContent = this._likes.length ? this._likes.length : '';
     return this._element;
   }
 
   // лайк карточке
   _likeCard(card) {
-    // const count = Number(this._cardLikesCounterElement.textContent);
+    const count = Number(this._cardLikesCounterElement.textContent);
     // const cardLikeBtn = card.querySelector('.btn_type_like');
 
-    // // если лайков нет
-    // if (!this._cardLikesCounterElement.textContent) {
 
-    //   // пока ставим в текст 1 и меняем иконку на активную
-    //   this._cardLikesCounterElement.textContent = '1';
-    //   this._cardLikesCounterElement.textContent = count + 1;
-    //   cardLikeBtn.classList.add('btn_type_like-active');
 
-    //   // если лайк есть
-    // } else if (cardLikeBtn.classList.contains('btn_type_like-active')) {
+    // TODO: тут разобраться с условием, чет мне не сильно нрвится оно
+    // если вообще накаких лайков нет
+    if (!this._cardLikesCounterElement.textContent) {
 
-    //   // меняем иконку на неактивную
-    //   cardLikeBtn.classList.remove('btn_type_like-active');
+      // пока ставим в текст 1 и меняем иконку на активную
+      this._cardLikesCounterElement.textContent = '1';
+      this._cardLikesCounterElement.textContent = count + 1;
+      this._cardLikeElement.classList.add('btn_type_like-active');
+      // TODO: тут отправить запрос к Api на добавление лайка
+      this._handleLikeClick(true, this._cardId);
 
-    //   // если стотит только 1 лайк, проверяем
-    //   if (count - 1 > 0) {
-    //     this._cardLikesCounterElement.textContent = count - 1;
-    //   } else {
-    //     this._cardLikesCounterElement.textContent = '';
-    //   }
+      // если есть мой лайк есть
+    } else if (this._cardLikeElement.classList.contains('btn_type_like-active')) {
 
-    //   // если лайки есть, плюсуем к ним свой
-    // } else {
+      // меняем иконку на неактивную
+      this._cardLikeElement.classList.remove('btn_type_like-active');
 
-    //   this._cardLikesCounterElement.textContent = count + 1;
-    //   cardLikeBtn.classList.add('btn_type_like-active');
+      // TODO: тут отправить запрос к Api на удаление лайка
+      this._handleLikeClick(false, this._cardId);
 
-    // }
+      // если стотит только 1 лайк, проверяем
+      this._cardLikesCounterElement.textContent = count - 1 > 0 ? count - 1 : '';
+      // if (count - 1 > 0) {
+      //   this._cardLikesCounterElement.textContent = count - 1;
+      // } else {
+      //   this._cardLikesCounterElement.textContent = '';
+      // }
+
+
+      // если лайки есть, плюсуем к ним свой
+    } else {
+
+      // console.log('если лайки есть, плюсуем к ним свой')
+
+      this._cardLikesCounterElement.textContent = count + 1;
+      this._cardLikeElement.classList.add('btn_type_like-active');
+      // TODO: тут отправить запрос к Api на добавление лайка
+      this._handleLikeClick(true, this._cardId);
+    }
   }
 
   // удаление карточки

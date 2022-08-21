@@ -1,9 +1,11 @@
 export default class Api {
-  constructor({ baseUrl, headers }) {
-    this._url = baseUrl;
-    this._headers = headers;
-
-    // console.log(this._headers.authorization);
+  constructor(config) {
+    this._url = config.baseUrl;
+    this._tokenId = config.tokenId;
+    this._headers = {
+      authorization: this._tokenId,
+      'Content-Type': 'application/json'
+    };
   }
 
   // проверяем рузультат запроса
@@ -19,9 +21,7 @@ export default class Api {
   // запрашиваем инфу о пользователе с сервера (аватар, имя, описание)
   getUserInfo() {
     return fetch(`${this._url}users/me`, {
-        headers: {
-          authorization: this._headers.authorization
-        }
+        headers: this._headers
       })
       .then(this._checkResult);
   }
@@ -30,10 +30,7 @@ export default class Api {
   setUserInfo(userData) {
     return fetch(`${this._url}users/me`, {
       method: 'PATCH',
-      headers: {
-        authorization: this._headers.authorization,
-        'Content-Type': 'application/json'
-      },
+      headers: this._headers,
       body: JSON.stringify({
         name: userData.name,
         about: userData.job
@@ -45,9 +42,7 @@ export default class Api {
   // запрашиваем начальные карточки с сервера
   getInitialCards() {
     return fetch(`${this._url}cards`, {
-        headers: {
-          authorization: this._headers.authorization
-        }
+        headers: this._headers
       })
       .then(this._checkResult);
   }
@@ -56,13 +51,10 @@ export default class Api {
   setNewCard({ name, link }) {
     return fetch(`${this._url}cards`, {
       method: 'POST',
-      headers: {
-        authorization: this._headers.authorization,
-        'Content-Type': 'application/json'
-      },
+      headers: this._headers,
       body: JSON.stringify({
-        name: name,
-        link: link
+        name,
+        link
       })
     })
     .then(this._checkResult);
@@ -71,10 +63,25 @@ export default class Api {
   deleteCard(cardId) {
     return fetch(`${this._url}cards/${cardId}`, {
       method: 'DELETE',
-      headers: {
-        authorization: this._headers.authorization,
-        'Content-Type': 'application/json'
-      }
+      headers: this._headers
+    })
+    .then(this._checkResult);
+  }
+
+  // ставим лайк
+  setLike(cardId) {
+    return fetch(`${this._url}cards/${cardId}/likes`, {
+      method: 'PUT',
+      headers: this._headers
+    })
+    .then(this._checkResult);
+  }
+
+  // убираем лайк
+  deleteLike(cardId) {
+    return fetch(`${this._url}cards/${cardId}/likes`, {
+      method: 'DELETE',
+      headers: this._headers
     })
     .then(this._checkResult);
   }

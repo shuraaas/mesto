@@ -14,6 +14,11 @@ const settings = {
   errorClass: 'form__input-error_active'
 };
 
+const apiConfig = {
+  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-48/',
+  tokenId: '1a0fcad2-374c-4a16-bc60-ad5ac7325d61'
+};
+
 const page = document.querySelector('.page');
 // кнопки
 const buttonEdit = page.querySelector('.btn_type_edit');
@@ -37,6 +42,7 @@ const cardSelector = '.card-template';
 
 export {
   settings,
+  apiConfig,
   buttonEdit,
   buttonAdd,
   profileNameSelector,
