@@ -1,23 +1,35 @@
 export default class Card {
-  constructor({ data, cardSelector, handleCardClick, handleDeleteClick} ) {
+  constructor({ data, cardSelector, handleCardClick, handleDeleteClick }, myId ) {
 
     // console.log(data)
 
     this._name = data.name;
     this._link = data.link;
     this._likes = data.likes;
+    this._myId = myId.id;
 
-    // console.log(data.likes)
+    this._cardId = data._id;
+    this._cardOwnerId = data.owner ? data.owner._id : null;
 
     this._cardSelector = cardSelector;
     this._handleCardClick = handleCardClick;
     this._handleDeleteClick = handleDeleteClick;
     this._element = this._getTemplate();
     this._cardImageElement = this._element.querySelector('.card__img');
+    this._cardLikeElement = this._element.querySelector('.btn_type_like');
     this._cardDescriptionElement = this._element.querySelector('.card__place');
     this._cardLikesCounterElement = this._element.querySelector('.card__like-counter');
+    this._cardDeleteBtnElement = this._element.querySelector('.btn_type_delete');
 
     // console.log(this._cardLikesCounterElement)
+  }
+
+  _checkCardOwner() {
+    if (this._cardOwnerId) {
+      if (this._cardOwnerId != this._myId) {
+        this._cardDeleteBtnElement.classList.add('btn_hidden');
+      }
+    }
   }
 
   // возвращаем разметку карточки
@@ -34,6 +46,9 @@ export default class Card {
   // генерируем карточку
   generateCard() {
     this._setEventListeners();
+
+    this._checkCardOwner();
+
     this._cardImageElement.src = this._link;
     this._cardImageElement.alt = `Место: ${this._name}`;
     this._cardDescriptionElement.textContent = this._name;
@@ -87,16 +102,15 @@ export default class Card {
   }
 
   // удаление карточки
-  _deleteCard(card) {
-    card.remove();
-    card = null;
+  deleteCard() {
+    this._element.remove();
+    this._element = null;
   }
 
   // ставим все слушатели на карточку
   _setEventListeners() {
-    this._element.querySelector('.card__img').addEventListener('click', () => this._handleCardClick(this._link, this._name));
-    this._element.querySelector('.btn_type_like').addEventListener('click', () => this._likeCard(this._element));
-    // this._element.querySelector('.btn_type_delete').addEventListener('click', () => this._deleteCard(this._element));
-    this._element.querySelector('.btn_type_delete').addEventListener('click', () => this._handleDeleteClick(this._element));
+    this._cardImageElement.addEventListener('click', () => this._handleCardClick(this._link, this._name));
+    this._cardLikeElement.addEventListener('click', () => this._likeCard(this._element));
+    this._cardDeleteBtnElement.addEventListener('click', () => this._handleDeleteClick(this._cardId));
   }
 } // Class CARD

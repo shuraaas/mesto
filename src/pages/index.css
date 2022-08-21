@@ -9,8 +9,8 @@
 @import url(../blocks/btn/_type/btn_type_close.css);
 @import url(../blocks/btn/_type/btn_type_save.css);
 @import url(../blocks/btn/_type/btn_type_delete.css);
-@import url(../blocks/btn/_type/btn_type_yes.css);
 @import url(../blocks/btn/_inactive/btn_inactive.css);
+@import url(../blocks/btn/_hidden/btn_hidden.css);
 
 @import url(../blocks/page/page.css);
 @import url(../blocks/page/_no-scroll/page_no-scroll.css);
@@ -50,6 +50,7 @@
 @import url(../blocks/popup/__img-name/popup__img-name.css);
 
 @import url(../blocks/form/form.css);
+@import url(../blocks/form/_type/form_type_confirm.css);
 @import url(../blocks/form/__content/form__content.css);
 @import url(../blocks/form/__field/form__field.css);
 @import url(../blocks/form/__input/form__input.css);

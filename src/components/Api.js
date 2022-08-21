@@ -67,4 +67,15 @@ export default class Api {
     })
     .then(this._checkResult);
   }
+
+  deleteCard(cardId) {
+    return fetch(`${this._url}cards/${cardId}`, {
+      method: 'DELETE',
+      headers: {
+        authorization: this._headers.authorization,
+        'Content-Type': 'application/json'
+      }
+    })
+    .then(this._checkResult);
+  }
 }

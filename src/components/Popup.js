@@ -2,7 +2,9 @@ import { page } from '../utils/constants.js';
 
 // класс отвечает за открытие и закрытие попапа
 export default class Popup {
-  constructor(popupSelector) {
+  constructor({ popupSelector }) {
+
+
     this._popup = document.querySelector(popupSelector);
     this._boundHandleEscClose = this._handleEscClose.bind(this);
   }
@@ -37,14 +39,6 @@ export default class Popup {
       }
       // закрываем при клике на крестик
       if (evt.target.classList.contains('btn_type_close')) {
-        this.close();
-      }
-      //
-      if (evt.target.classList.contains('btn_type_yes')) {
-        console.log(evt.target)
-
-
-
         this.close();
       }
     });

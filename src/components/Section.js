@@ -18,6 +18,9 @@ export default class Section {
   renderItems() {
     this._renderedItems.then(items => {
       items.forEach(item => {
+
+          // console.log(item)
+
           this._renderer(item);
         });
     });

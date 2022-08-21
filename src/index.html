@@ -130,10 +130,15 @@
   <!-- удаление карточки -->
   <div class="popup popup_type_delete-card">
     <div class="popup__container">
-
       <button class="btn btn_type_close" type="button"></button>
-      <h2 class="popup__description">Вы уверены?</h2>
-      <button class="btn btn_type_save btn_type_yes" type="button">Да</button>
+
+      <!-- TODO: тут проверить с макетом пиксель пёрфект форму -->
+      <form class="form form_type_confirm" name="confirm" method="post" action="/">
+
+        <h2 class="popup__description">Вы уверены?</h2>
+        <button class="btn btn_type_save" type="submit">Да</button>
+
+      </form>
 
     </div>
   </div>
