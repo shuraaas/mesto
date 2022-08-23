@@ -23,9 +23,16 @@ const page = document.querySelector('.page');
 // кнопки
 const buttonEdit = page.querySelector('.btn_type_edit');
 const buttonAdd = page.querySelector('.btn_type_add');
+const buttonEditAvatar = page.querySelector('.btn_type_edit-avatar');
 
-const profileNameSelector = '.profile__name';
-const profileJobSelector = '.profile__job';
+const userData = {
+  profileAvatarSelector: '.profile__avatar',
+  profileNameSelector: '.profile__name',
+  profileJobSelector: '.profile__job'
+}
+// const profileAvatarSelector = '.profile__avatar';
+// const profileNameSelector = '.profile__name';
+// const profileJobSelector = '.profile__job';
 
 // контейрер для карточек
 const cardsListSelector = '.cards__list';
@@ -33,6 +40,7 @@ const cardsListSelector = '.cards__list';
 // формы
 const formEdit = page.querySelector('.form_type_edit');
 const formAddCard = page.querySelector('.form_type_add-card');
+const formEditAvatar = page.querySelector('.form_type_edit-avatar');
 
 const placeNameInput = formAddCard.querySelector('.form__input_type_place-name');
 const urlPlaceInput = formAddCard.querySelector('.form__input_type_url');
@@ -40,18 +48,22 @@ const urlPlaceInput = formAddCard.querySelector('.form__input_type_url');
 // шаблон карточки
 const cardSelector = '.card-template';
 
+const myId = {id: ''};
+
 export {
   settings,
   apiConfig,
   buttonEdit,
+  buttonEditAvatar,
   buttonAdd,
-  profileNameSelector,
-  profileJobSelector,
+  userData,
   cardsListSelector,
   formEdit,
   formAddCard,
+  formEditAvatar,
   placeNameInput,
   urlPlaceInput,
   page,
-  cardSelector
+  cardSelector,
+  myId
 };

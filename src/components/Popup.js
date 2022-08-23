@@ -2,9 +2,7 @@ import { page } from '../utils/constants.js';
 
 // класс отвечает за открытие и закрытие попапа
 export default class Popup {
-  constructor({ popupSelector }) {
-
-
+  constructor(popupSelector) {
     this._popup = document.querySelector(popupSelector);
     this._boundHandleEscClose = this._handleEscClose.bind(this);
   }

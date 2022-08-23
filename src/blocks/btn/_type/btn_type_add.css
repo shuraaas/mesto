@@ -1,6 +1,7 @@
 .btn_type_add {
   width: 150px;
   height: 50px;
+  outline: none;
   border: 2px solid #fff;
   border-radius: 2px;
   background: url('../../../images/add-btn.svg') no-repeat center;

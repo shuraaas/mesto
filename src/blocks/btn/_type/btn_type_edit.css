@@ -1,6 +1,7 @@
 .btn_type_edit {
   width: 24px;
   height: 24px;
+  outline: none;
   grid-area: edit;
   border: 1px solid #fff;
   background: url('../../../images/edit-btn.svg') no-repeat center;
@@ -20,4 +21,3 @@
     right: -28px;
   }
 }
-

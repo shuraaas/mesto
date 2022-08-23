@@ -4,7 +4,7 @@
   position: absolute;
   top: 20px;
   right: 15px;
-  background: url('../../../images/delete.png') no-repeat center;
+  background: url('../../../images/delete-btn.svg') no-repeat center;
 }
 
 .btn_type_delete:hover {

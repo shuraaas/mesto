@@ -6,15 +6,17 @@ import {
   settings,
   apiConfig,
   buttonEdit,
+  buttonEditAvatar,
   buttonAdd,
-  profileNameSelector,
-  profileJobSelector,
+  userData,
   cardsListSelector,
   formEdit,
   formAddCard,
+  formEditAvatar,
   placeNameInput,
   urlPlaceInput,
-  cardSelector
+  cardSelector,
+  myId
 } from '../utils/constants.js';
 
 // классы
@@ -29,20 +31,13 @@ import Api from '../components/Api.js';
 import Popup from '../components/Popup.js';
 
 const api = new Api(apiConfig);
-
-const userInfo = new UserInfo({ profileNameSelector, profileJobSelector });
+const userInfo = new UserInfo(userData);
 
 // TODO: тут возможно надо переместить это в другое место
 // вставляем имя и описание профиля с сервера при загрузке страницы
-
-const myId = {id: ''};
-
 api.getUserInfo()
-.then(data => {
+  .then(data => {
     myId.id = data._id;
-
-    // console.log(data._id)
-
     userInfo.setUserInfo(data);
   })
   .catch(err => console.error(err));
@@ -61,6 +56,14 @@ const popupTypeEdit = new PopupWithForm({
   }
 });
 
+const popupTypeEditAvatar = new PopupWithForm({
+  popupSelector: '.popup_type_edit-avatar',
+  handleFormSubmit: (data) => {
+    api.changeAvatar(data)
+    userInfo.setUserAvatar(data);
+  }
+});
+
 const popupTypeAdd = new PopupWithForm({
   popupSelector: '.popup_type_new-card',
   handleFormSubmit: () => {
@@ -68,23 +71,16 @@ const popupTypeAdd = new PopupWithForm({
   }
 });
 
-// const popupTypeZoom = new PopupWithImage('.popup_type_zoom-img');
-const popupTypeZoom = new PopupWithImage({
-  popupSelector: '.popup_type_zoom-img'
-});
-
-const popupTypeDeleteCard = new PopupWithConfirmation({
-  popupSelector: '.popup_type_delete-card'
-});
-
+const popupTypeZoom = new PopupWithImage('.popup_type_zoom-img');
+const popupTypeDeleteCard = new PopupWithConfirmation('.popup_type_delete-card');
 
 // для каждой формы свой экземпляр класса
 const formEditValidator = new FormValidator(settings, formEdit);
 const formAddCardValidator = new FormValidator(settings, formAddCard);
+const formEditAvatarValidator = new FormValidator(settings, formEditAvatar);
 
 
 // создание новой карточки
-// const createCard = ({ name, link, likes, myId, cardOwnerId }) => {
 const createCard = (cardData) => {
   const card = new Card({
     // data: { name, link, likes, myId, cardOwnerId },
@@ -140,6 +136,10 @@ const openEditPopup = () => {
   userInfo.setUserInfo(userInfo.getUserInfo());
 };
 
+const openEditAvatarPopup = () => {
+  popupTypeEditAvatar.open();
+}
+
 // открытие попап добавления карточки
 const openAddCardPopup = () => {
   formAddCard.reset();
@@ -166,6 +166,7 @@ cardList.renderItems();
 // валидируем формы при загрузке страницы
 formEditValidator.enableValidation();
 formAddCardValidator.enableValidation();
+formEditAvatarValidator.enableValidation();
 
 // Слушатели -----
 // добавляем слушатели на попапы
@@ -173,6 +174,8 @@ popupTypeEdit.setEventListeners();
 popupTypeAdd.setEventListeners();
 popupTypeZoom.setEventListeners();
 popupTypeDeleteCard.setEventListeners();
+popupTypeEditAvatar.setEventListeners();
 // слушаем кнопки
 buttonEdit.addEventListener('click', openEditPopup);
+buttonEditAvatar.addEventListener('click', openEditAvatarPopup);
 buttonAdd.addEventListener('click', openAddCardPopup);

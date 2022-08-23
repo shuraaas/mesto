@@ -13,7 +13,10 @@
     <main class="content">
       <section class="profile">
         <div class="profile__author">
-          <img class="profile__avatar" src="<%=require('./images/profile-avatar.jpg')%>" alt="Аватар пользователя.">
+          <div class="profile__avatar-container">
+            <img class="profile__avatar" src="" alt="Аватар пользователя.">
+            <button class="btn btn_type_edit-avatar" type="button"></button>
+          </div>
           <div class="profile__info">
             <!-- <h1 class="profile__name">Жак-Ив Кусто</h1> -->
             <h1 class="profile__name"></h1>
@@ -113,15 +116,33 @@
   <div class="popup popup_type_delete-card">
     <div class="popup__container">
       <button class="btn btn_type_close" type="button"></button>
-
       <!-- TODO: тут проверить с макетом пиксель пёрфект форму -->
       <form class="form form_type_confirm" name="confirm" method="post" action="/">
-
         <h2 class="popup__description">Вы уверены?</h2>
         <button class="btn btn_type_save" type="submit">Да</button>
-
       </form>
+    </div>
+  </div>
 
+   <!-- редактирование аватара профиля -->
+   <div class="popup popup_type_edit-avatar">
+    <div class="popup__container">
+      <button class="btn btn_type_close" type="button"></button>
+      <form class="form form_type_edit-avatar" name="edit-avatar" method="post" action="/">
+        <h2 class="popup__description">Обновить аватар</h2>
+
+        <fieldset class="form__content">
+
+          <label class="form__field">
+            <input class="form__input form__input_type_url" name="url" id="url-input" type="url" placeholder="Ссылка на картинку" required>
+            <!-- ! текст ошибки -->
+            <span class="form__input-error url-input-error"></span>
+          </label>
+
+        </fieldset>
+
+        <button class="btn btn_type_save" type="submit">Сохранить</button>
+      </form>
     </div>
   </div>
 </body>

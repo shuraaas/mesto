@@ -85,4 +85,16 @@ export default class Api {
     })
     .then(this._checkResult);
   }
+
+  // загружаем новый аватар на сервер
+  changeAvatar(data) {
+    return fetch(`${this._url}/users/me/avatar`, {
+      method: 'PATCH',
+      headers: this._headers,
+      body: JSON.stringify({
+        avatar: data.url
+      })
+    })
+    .then(this._checkResult);
+  }
 }
