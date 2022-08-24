@@ -14,7 +14,7 @@
       <section class="profile">
         <div class="profile__author">
           <div class="profile__avatar-container">
-            <img class="profile__avatar" src="" alt="Аватар пользователя.">
+            <img class="profile__avatar" src="#" alt="Аватар пользователя.">
             <button class="btn btn_type_edit-avatar" type="button"></button>
           </div>
           <div class="profile__info">
@@ -121,17 +121,12 @@
       <button class="btn btn_type_close" type="button"></button>
       <form class="form form_type_edit-avatar" name="edit-avatar" method="post" action="/">
         <h2 class="popup__description">Обновить аватар</h2>
-
         <fieldset class="form__content">
-
           <label class="form__field">
-            <input class="form__input form__input_type_url" name="url" id="url-input" type="url" placeholder="Ссылка на картинку" required>
-            <!-- ! текст ошибки -->
-            <span class="form__input-error url-input-error"></span>
+            <input class="form__input form__input_type_avatar" name="avatar" id="avatar-input" type="url" placeholder="Ссылка на аватар" required>
+            <span class="form__input-error avatar-input-error"></span>
           </label>
-
         </fieldset>
-
         <button class="btn btn_type_save" type="submit">Сохранить</button>
       </form>
     </div>
