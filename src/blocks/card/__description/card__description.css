@@ -1,6 +1,5 @@
 .card__description {
   padding: 20px;
-  /* TODO: тут может что-нибудь получше придумать вместо минимальной высоты */
   min-height: 38px;
   display: grid;
   grid-template-columns: auto 22px;

@@ -1,5 +1,4 @@
 .card__img {
-  /* TODO: тут проверить правильно ли указывать высоту */
   height: 282px;
   object-fit: cover;
   width: 100%;

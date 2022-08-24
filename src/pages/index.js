@@ -28,20 +28,9 @@ import PopupWithForm from '../components/PopupWithForm.js';
 import PopupWithConfirmation from '../components/PopupWithConfirmation.js';
 import UserInfo from '../components/UserInfo.js';
 import Api from '../components/Api.js';
-import Popup from '../components/Popup.js';
 
 const api = new Api(apiConfig);
 const userInfo = new UserInfo(userData);
-
-// TODO: тут возможно надо переместить это в другое место
-// вставляем имя и описание профиля с сервера при загрузке страницы
-api.getUserInfo()
-  .then(data => {
-    myId.id = data._id;
-    userInfo.setUserInfo(data);
-  })
-  .catch(err => console.error(err));
-
 
 // попапы
 const popupTypeEdit = new PopupWithForm({
@@ -49,6 +38,7 @@ const popupTypeEdit = new PopupWithForm({
   handleFormSubmit: (data) => {
     popupTypeEdit.renderLoading(true);
     api.setUserInfo(data)
+      .catch(err => console.error(err))
       .finally(() => popupTypeEdit.renderLoading(false));
     userInfo.setUserInfo(data);
   },
@@ -63,6 +53,7 @@ const popupTypeEditAvatar = new PopupWithForm({
   handleFormSubmit: (data) => {
     popupTypeEditAvatar.renderLoading(true);
     api.changeAvatar(data)
+      .catch(err => console.error(err))
       .finally(() => popupTypeEditAvatar.renderLoading(false));
     userInfo.setUserAvatar(data);
   }
@@ -83,54 +74,40 @@ const formEditValidator = new FormValidator(settings, formEdit);
 const formAddCardValidator = new FormValidator(settings, formAddCard);
 const formEditAvatarValidator = new FormValidator(settings, formEditAvatar);
 
-
 // создание новой карточки
 const createCard = (cardData) => {
   const card = new Card({
-    // data: { name, link, likes, myId, cardOwnerId },
     data: cardData,
     cardSelector: cardSelector,
     handleCardClick: (link, name) => popupTypeZoom.open(link, name),
     handleDeleteClick: (cardId) => {
       popupTypeDeleteCard.open();
-
-
       popupTypeDeleteCard.onSubmit(() => {
-        // popupTypeDeleteCard.togglePreloaderOnSubmit(true);
-
         api.deleteCard(cardId)
           .then(() => {
             popupTypeDeleteCard.close();
             card.deleteCard();
           })
-          .catch((err) => {
-            console.log(err);
-          });
-          // .finally(() => {
-          //   confirmationModal.togglePreloaderOnSubmit(false)
-          // });
+          .catch(err => console.error(err));
       });
-
-      // popupTypeDeleteCard.onSubmit(() => console.log('qwe'));
-
-      // popupTypeDeleteCard.setCardId(cardId);
-      // popupTypeDeleteCard.deleteCard(cardId);
-      // console.log(`cardId: ${currentCardId.id}`);
     },
-    handleLikeClick: (status, cardId) => status ? api.setLike(cardId) : api.deleteLike(cardId)
-  },
-  myId);
+    handleLikeClick: (status, cardId) => {
+      if (status) {
+        api.setLike(cardId)
+          .catch(err => console.error(err));
+      } else {
+        api.deleteLike(cardId)
+          .catch(err => console.error(err));
+      }
+    }
+  }, myId);
 
   return card.generateCard();
 };
 
-
-const promiseCards = api.getInitialCards();
-
 // рисуем начальные карточки из массива с данными
 const cardList = new Section({
-  items: promiseCards,
-  // renderer: ({ name, link, likes,  }) => cardList.addItem(createCard({ name, link, likes }))
+  items: api.getInitialCards().catch(err => console.error(err)),
   renderer: (data) => cardList.addItem(createCard(data))
 }, cardsListSelector);
 
@@ -159,11 +136,20 @@ const addCard = () => {
   popupTypeAdd.renderLoading(true);
   // отправляем карточку на сервер
   api.setNewCard({ name, link })
+    .catch(err => console.error(err))
     .finally(() => popupTypeAdd.renderLoading(false));
 
   cardList.addItem(createCard({ name, link }));
   popupTypeAdd.close();
 };
+
+// вставляем имя и описание профиля с сервера при загрузке страницы
+api.getUserInfo()
+  .then(data => {
+    myId.id = data._id;
+    userInfo.setUserInfo(data);
+  })
+  .catch(err => console.error(err));
 
 // рендерим начальные карточки
 cardList.renderItems();

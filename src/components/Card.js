@@ -7,16 +7,12 @@ export default class Card {
     handleLikeClick // обрабатываем клик по лайку
   }, myId ) {
 
-    // console.log(data)
-
     this._name = data.name;
     this._link = data.link;
     this._likes = data.likes ? data.likes : 0;
     this._myId = myId.id;
-
     this._cardId = data._id;
     this._cardOwnerId = data.owner ? data.owner._id : null;
-
     this._cardSelector = cardSelector;
     this._handleCardClick = handleCardClick;
     this._handleDeleteClick = handleDeleteClick;
@@ -27,8 +23,6 @@ export default class Card {
     this._cardDescriptionElement = this._element.querySelector('.card__place');
     this._cardLikesCounterElement = this._element.querySelector('.card__like-counter');
     this._cardDeleteBtnElement = this._element.querySelector('.btn_type_delete');
-
-    // console.log(this._cardLikesCounterElement)
   }
 
   _checkCardOwner() {
@@ -69,66 +63,38 @@ export default class Card {
     this._setEventListeners();
     this._checkCardOwner();
     this._checkMyLikes();
-
     this._cardImageElement.src = this._link;
     this._cardImageElement.alt = `Место: ${this._name}`;
     this._cardDescriptionElement.textContent = this._name;
-
-    // if (this._likes.length > 0) {
-    //   this._cardLikesCounterElement.textContent = this._likes.length;
-    // } else {
-    //   this._cardLikesCounterElement.textContent = '';
-    // }
-
     this._cardLikesCounterElement.textContent = this._likes.length > 0 ? this._likes.length : '';
-
     return this._element;
   }
 
   // лайк карточке
-  _likeCard(card) {
+  _likeCard() {
     const count = Number(this._cardLikesCounterElement.textContent);
-    // const cardLikeBtn = card.querySelector('.btn_type_like');
 
-
-
-    // TODO: тут разобраться с условием, чет мне не сильно нрвится оно
     // если вообще накаких лайков нет
     if (!this._cardLikesCounterElement.textContent) {
-
       // пока ставим в текст 1 и меняем иконку на активную
       this._cardLikesCounterElement.textContent = '1';
       this._cardLikesCounterElement.textContent = count + 1;
       this._cardLikeElement.classList.add('btn_type_like-active');
-      // TODO: тут отправить запрос к Api на добавление лайка
       this._handleLikeClick(true, this._cardId);
 
       // если есть мой лайк есть
     } else if (this._cardLikeElement.classList.contains('btn_type_like-active')) {
-
       // меняем иконку на неактивную
       this._cardLikeElement.classList.remove('btn_type_like-active');
-
-      // TODO: тут отправить запрос к Api на удаление лайка
       this._handleLikeClick(false, this._cardId);
 
       // если стотит только 1 лайк, проверяем
       this._cardLikesCounterElement.textContent = count - 1 > 0 ? count - 1 : '';
-      // if (count - 1 > 0) {
-      //   this._cardLikesCounterElement.textContent = count - 1;
-      // } else {
-      //   this._cardLikesCounterElement.textContent = '';
-      // }
-
 
       // если лайки есть, плюсуем к ним свой
     } else {
-
-      // console.log('если лайки есть, плюсуем к ним свой')
-
       this._cardLikesCounterElement.textContent = count + 1;
       this._cardLikeElement.classList.add('btn_type_like-active');
-      // TODO: тут отправить запрос к Api на добавление лайка
       this._handleLikeClick(true, this._cardId);
     }
   }
