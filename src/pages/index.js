@@ -47,7 +47,9 @@ api.getUserInfo()
 const popupTypeEdit = new PopupWithForm({
   popupSelector: '.popup_type_edit',
   handleFormSubmit: (data) => {
-    api.setUserInfo(data);
+    popupTypeEdit.renderLoading(true);
+    api.setUserInfo(data)
+      .finally(() => popupTypeEdit.renderLoading(false));
     userInfo.setUserInfo(data);
   },
   handleFormPrefill: (inputs) => {
@@ -59,7 +61,9 @@ const popupTypeEdit = new PopupWithForm({
 const popupTypeEditAvatar = new PopupWithForm({
   popupSelector: '.popup_type_edit-avatar',
   handleFormSubmit: (data) => {
+    popupTypeEditAvatar.renderLoading(true);
     api.changeAvatar(data)
+      .finally(() => popupTypeEditAvatar.renderLoading(false));
     userInfo.setUserAvatar(data);
   }
 });
@@ -152,10 +156,11 @@ const addCard = () => {
   const name = placeNameInput.value;
   const link = urlPlaceInput.value;
 
+  popupTypeAdd.renderLoading(true);
   // отправляем карточку на сервер
-  api.setNewCard({ name, link });
+  api.setNewCard({ name, link })
+    .finally(() => popupTypeAdd.renderLoading(false));
 
-  // cardList.addItem(createCard({ name, link, likes }));
   cardList.addItem(createCard({ name, link }));
   popupTypeAdd.close();
 };

@@ -8,6 +8,10 @@ export default class PopupWithForm extends Popup {
     this._boundGetInputValues = this._getInputValues.bind(this);
     this._form = this._popup.querySelector('.form');
     this._inputList = this._popup.querySelectorAll('.form__input');
+    this._submitBtn = this._popup.querySelector('.btn_type_save');
+    this._submitBtnText = this._submitBtn.textContent;
+    // console.log(this._submitBtn)
+    // console.log(this._submitBtnText)
   }
 
   // метод собирает данные всех полей формы
@@ -19,6 +23,14 @@ export default class PopupWithForm extends Popup {
     });
 
     return this.inputValues;
+  }
+
+  renderLoading(isLoading) {
+    if(isLoading) {
+      this._submitBtn.textContent = 'Сохранение...';
+    } else {
+      this._submitBtn.textContent = this._submitBtnText;
+    }
   }
 
   open() {
