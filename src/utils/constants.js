@@ -49,6 +49,7 @@ const urlPlaceInput = formAddCard.querySelector('.form__input_type_url');
 const cardSelector = '.card-template';
 
 const myId = {id: ''};
+const newCardId = {id: ''};
 
 export {
   settings,
@@ -65,5 +66,6 @@ export {
   urlPlaceInput,
   page,
   cardSelector,
-  myId
+  myId,
+  newCardId
 };

@@ -9,6 +9,7 @@ export default class Section {
   // метод принимает DOM-элемент и добавляет его в контейнер
   addItem(element) {
     this._container.prepend(element);
+    // this._container.append(element);
   }
 
   // метод, который отвечает за отрисовку всех элементов

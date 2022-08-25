@@ -5,12 +5,19 @@ export default class Card {
     handleCardClick, // обрабатываем клик по картинке
     handleDeleteClick, // обрабатываем клик по иконке удаления
     handleLikeClick // обрабатываем клик по лайку
-  }, myId ) {
+  }, myId, newCardId ) {
+
+    // console.log(newCardId)
+
+    this.data = data;
 
     this._name = data.name;
     this._link = data.link;
     this._likes = data.likes ? data.likes : 0;
     this._myId = myId.id;
+    this._newCardId = newCardId;
+    // console.log(this._newCardId)
+
     this._cardId = data._id;
     this._cardOwnerId = data.owner ? data.owner._id : null;
     this._cardSelector = cardSelector;
@@ -71,7 +78,17 @@ export default class Card {
   }
 
   // лайк карточке
-  _likeCard() {
+  _likeCard(cardId) {
+
+    // console.log(cardId)
+
+    // if (!cardId) {
+    //   console.log(`нет cardId, но есть this._newCardId: ${this._newCardId.id}`)
+    //   console.log(this.data)
+    // }
+
+    // console.log(this._newCardId.id)
+
     const count = Number(this._cardLikesCounterElement.textContent);
 
     // если вообще накаких лайков нет
@@ -80,13 +97,25 @@ export default class Card {
       this._cardLikesCounterElement.textContent = '1';
       this._cardLikesCounterElement.textContent = count + 1;
       this._cardLikeElement.classList.add('btn_type_like-active');
-      this._handleLikeClick(true, this._cardId);
+
+      if (!cardId) {
+        // console.log(this._newCardId.id)
+        this._handleLikeClick(true, this._newCardId.id);
+      } else {
+        this._handleLikeClick(true, this._cardId);
+      }
 
       // если есть мой лайк есть
     } else if (this._cardLikeElement.classList.contains('btn_type_like-active')) {
       // меняем иконку на неактивную
       this._cardLikeElement.classList.remove('btn_type_like-active');
-      this._handleLikeClick(false, this._cardId);
+
+      if (!cardId) {
+        this._handleLikeClick(false, this._newCardId.id);
+      } else {
+        this._handleLikeClick(false, this._cardId);
+      }
+
 
       // если стотит только 1 лайк, проверяем
       this._cardLikesCounterElement.textContent = count - 1 > 0 ? count - 1 : '';
@@ -95,7 +124,13 @@ export default class Card {
     } else {
       this._cardLikesCounterElement.textContent = count + 1;
       this._cardLikeElement.classList.add('btn_type_like-active');
-      this._handleLikeClick(true, this._cardId);
+
+      if (!cardId) {
+        this._handleLikeClick(true, this._newCardId.id);
+      } else {
+        this._handleLikeClick(true, this._cardId);
+      }
+
     }
   }
 
@@ -108,7 +143,7 @@ export default class Card {
   // ставим все слушатели на карточку
   _setEventListeners() {
     this._cardImageElement.addEventListener('click', () => this._handleCardClick(this._link, this._name));
-    this._cardLikeElement.addEventListener('click', () => this._likeCard(this._element));
+    this._cardLikeElement.addEventListener('click', () => this._likeCard(this._cardId));
     this._cardDeleteBtnElement.addEventListener('click', () => this._handleDeleteClick(this._cardId));
   }
 } // Class CARD

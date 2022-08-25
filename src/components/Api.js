@@ -70,6 +70,9 @@ export default class Api {
 
   // ставим лайк
   setLike(cardId) {
+
+    // console.log(cardId)
+
     return fetch(`${this._url}cards/${cardId}/likes`, {
       method: 'PUT',
       headers: this._headers

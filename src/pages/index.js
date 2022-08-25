@@ -16,7 +16,8 @@ import {
   placeNameInput,
   urlPlaceInput,
   cardSelector,
-  myId
+  myId,
+  newCardId
 } from '../utils/constants.js';
 
 // классы
@@ -63,6 +64,7 @@ const popupTypeAdd = new PopupWithForm({
   popupSelector: '.popup_type_new-card',
   handleFormSubmit: () => {
     addCard();
+    // console.log(newCardId)
   }
 });
 
@@ -92,15 +94,27 @@ const createCard = (cardData) => {
       });
     },
     handleLikeClick: (status, cardId) => {
+
+      // debugger;
+
+      // console.log('hi')
+
+      // api.getInitialCards().then(data => {
+        // data.forEach(item => console.log(item));
+      // });
+
       if (status) {
         api.setLike(cardId)
+        // TODO: сюда наверное передать кнопку лайка и менять ее состяние
           .catch(err => console.error(err));
       } else {
         api.deleteLike(cardId)
           .catch(err => console.error(err));
       }
     }
-  }, myId);
+  }, myId, newCardId);
+
+  // console.log(newCardId)
 
   return card.generateCard();
 };
@@ -136,11 +150,16 @@ const addCard = () => {
   popupTypeAdd.renderLoading(true);
   // отправляем карточку на сервер
   api.setNewCard({ name, link })
+    // todo: тут сервер возвращает объект с данными новой карточки, тут есть ее ID
+    .then(cardData => newCardId.id = cardData._id)
+    // .then(cardData => console.log(typeof cardData._id))
     .catch(err => console.error(err))
     .finally(() => popupTypeAdd.renderLoading(false));
 
   cardList.addItem(createCard({ name, link }));
   popupTypeAdd.close();
+
+  return newCardId;
 };
 
 // вставляем имя и описание профиля с сервера при загрузке страницы
