@@ -144,6 +144,6 @@ export default class Card {
   _setEventListeners() {
     this._cardImageElement.addEventListener('click', () => this._handleCardClick(this._link, this._name));
     this._cardLikeElement.addEventListener('click', () => this._likeCard(this._cardId));
-    this._cardDeleteBtnElement.addEventListener('click', () => this._handleDeleteClick(this._cardId));
+    this._cardDeleteBtnElement.addEventListener('click', () => this._handleDeleteClick(this._cardId, this._newCardId.id));
   }
 } // Class CARD

@@ -82,12 +82,24 @@ const createCard = (cardData) => {
     data: cardData,
     cardSelector: cardSelector,
     handleCardClick: (link, name) => popupTypeZoom.open(link, name),
-    handleDeleteClick: (cardId) => {
+    handleDeleteClick: (cardId, newCardId) => {
+
+      const currentCardId = cardId || newCardId;
+
+      // console.log(`cardId ${cardId}`)
+      // console.log(`newCardId ${newCardId}`)
+      // console.log(`currentCardId ${currentCardId}`)
+
       popupTypeDeleteCard.open();
       popupTypeDeleteCard.onSubmit(() => {
-        api.deleteCard(cardId)
+
+
+        api.deleteCard(currentCardId)
           .then(() => {
             popupTypeDeleteCard.close();
+
+            // console.log(newCardId)
+
             card.deleteCard();
           })
           .catch(err => console.error(err));
