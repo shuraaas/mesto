@@ -79,16 +79,6 @@ export default class Card {
 
   // лайк карточке
   _likeCard(cardId) {
-
-    // console.log(cardId)
-
-    // if (!cardId) {
-    //   console.log(`нет cardId, но есть this._newCardId: ${this._newCardId.id}`)
-    //   console.log(this.data)
-    // }
-
-    // console.log(this._newCardId.id)
-
     const count = Number(this._cardLikesCounterElement.textContent);
 
     // если вообще накаких лайков нет
@@ -96,24 +86,23 @@ export default class Card {
       // пока ставим в текст 1 и меняем иконку на активную
       this._cardLikesCounterElement.textContent = '1';
       this._cardLikesCounterElement.textContent = count + 1;
-      this._cardLikeElement.classList.add('btn_type_like-active');
+
 
       if (!cardId) {
         // console.log(this._newCardId.id)
-        this._handleLikeClick(true, this._newCardId.id);
+        this._handleLikeClick(true, this._newCardId.id, this._cardLikeElement);
       } else {
-        this._handleLikeClick(true, this._cardId);
+        this._handleLikeClick(true, this._cardId, this._cardLikeElement);
       }
 
       // если есть мой лайк есть
     } else if (this._cardLikeElement.classList.contains('btn_type_like-active')) {
       // меняем иконку на неактивную
-      this._cardLikeElement.classList.remove('btn_type_like-active');
 
       if (!cardId) {
-        this._handleLikeClick(false, this._newCardId.id);
+        this._handleLikeClick(false, this._newCardId.id, this._cardLikeElement);
       } else {
-        this._handleLikeClick(false, this._cardId);
+        this._handleLikeClick(false, this._cardId, this._cardLikeElement);
       }
 
 
@@ -123,12 +112,11 @@ export default class Card {
       // если лайки есть, плюсуем к ним свой
     } else {
       this._cardLikesCounterElement.textContent = count + 1;
-      this._cardLikeElement.classList.add('btn_type_like-active');
 
       if (!cardId) {
-        this._handleLikeClick(true, this._newCardId.id);
+        this._handleLikeClick(true, this._newCardId.id, this._cardLikeElement);
       } else {
-        this._handleLikeClick(true, this._cardId);
+        this._handleLikeClick(true, this._cardId, this._cardLikeElement);
       }
 
     }

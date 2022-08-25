@@ -93,40 +93,30 @@ const createCard = (cardData) => {
       popupTypeDeleteCard.open();
       popupTypeDeleteCard.onSubmit(() => {
 
-
         api.deleteCard(currentCardId)
           .then(() => {
             popupTypeDeleteCard.close();
-
-            // console.log(newCardId)
-
             card.deleteCard();
           })
           .catch(err => console.error(err));
       });
     },
-    handleLikeClick: (status, cardId) => {
-
-      // debugger;
-
-      // console.log('hi')
-
-      // api.getInitialCards().then(data => {
-        // data.forEach(item => console.log(item));
-      // });
-
+    handleLikeClick: (status, cardId, cardLikeElement) => {
       if (status) {
         api.setLike(cardId)
-        // TODO: сюда наверное передать кнопку лайка и менять ее состяние
+          .then(() => {
+            cardLikeElement.classList.add('btn_type_like-active');
+          })
           .catch(err => console.error(err));
       } else {
         api.deleteLike(cardId)
+          .then(() => {
+            cardLikeElement.classList.remove('btn_type_like-active');
+          })
           .catch(err => console.error(err));
       }
     }
   }, myId, newCardId);
-
-  // console.log(newCardId)
 
   return card.generateCard();
 };
