@@ -39,6 +39,7 @@ const popupTypeEdit = new PopupWithForm({
   handleFormSubmit: (data) => {
     popupTypeEdit.renderLoading(true);
     api.setUserInfo(data)
+      .then(() => popupTypeEdit.close())
       .catch(err => console.error(err))
       .finally(() => popupTypeEdit.renderLoading(false));
     userInfo.setUserInfo(data);
@@ -54,6 +55,7 @@ const popupTypeEditAvatar = new PopupWithForm({
   handleFormSubmit: (data) => {
     popupTypeEditAvatar.renderLoading(true);
     api.changeAvatar(data)
+      .then(() => popupTypeEditAvatar.close())
       .catch(err => console.error(err))
       .finally(() => popupTypeEditAvatar.renderLoading(false));
     userInfo.setUserAvatar(data);
@@ -150,13 +152,14 @@ const addCard = () => {
   // отправляем карточку на сервер
   api.setNewCard({ name, link })
     // todo: тут сервер возвращает объект с данными новой карточки, тут есть ее ID
-    .then(cardData => newCardId.id = cardData._id)
-    // .then(cardData => console.log(typeof cardData._id))
+    .then(cardData => {
+      newCardId.id = cardData._id;
+      popupTypeAdd.close();
+    })
     .catch(err => console.error(err))
     .finally(() => popupTypeAdd.renderLoading(false));
 
   cardList.addItem(createCard({ name, link }));
-  popupTypeAdd.close();
 
   return newCardId;
 };
