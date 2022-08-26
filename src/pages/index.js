@@ -33,6 +33,21 @@ import Api from '../components/Api.js';
 const api = new Api(apiConfig);
 const userInfo = new UserInfo(userData);
 
+// получаем инфу пользователя и начальные карточки одновременно,
+// чтобы корректно отображались лайки и кнопка удаления
+const promiseUserInfo = api.getUserInfo();
+const promiseInitialCards = api.getInitialCards();
+
+Promise.all([promiseUserInfo, promiseInitialCards])
+  .then(([userData, cards]) => {
+    // вставляем имя и описание профиля с сервера при загрузке страницы
+    myId.id = userData._id;
+    userInfo.setUserInfo(userData);
+    // отрисовка начальных карточек
+    cardList.renderItems(cards);
+  })
+  .catch(err => console.error(err));
+
 // попапы
 const popupTypeEdit = new PopupWithForm({
   popupSelector: '.popup_type_edit',
@@ -66,7 +81,6 @@ const popupTypeAdd = new PopupWithForm({
   popupSelector: '.popup_type_new-card',
   handleFormSubmit: () => {
     addCard();
-    // console.log(newCardId)
   }
 });
 
@@ -89,7 +103,6 @@ const createCard = (cardData) => {
 
       popupTypeDeleteCard.open();
       popupTypeDeleteCard.onSubmit(() => {
-
         api.deleteCard(currentCardId)
           .then(() => {
             popupTypeDeleteCard.close();
@@ -122,8 +135,7 @@ const createCard = (cardData) => {
 
 // рисуем начальные карточки из массива с данными
 const cardList = new Section({
-  items: api.getInitialCards().catch(err => console.error(err)),
-  renderer: (data) => cardList.addItem(createCard(data))
+  renderer: (cardData) => cardList.addItem(createCard(cardData))
 }, cardsListSelector);
 
 // открытие попап редактирования
@@ -134,7 +146,7 @@ const openEditPopup = () => {
 
 const openEditAvatarPopup = () => {
   popupTypeEditAvatar.open();
-}
+};
 
 // открытие попап добавления карточки
 const openAddCardPopup = () => {
@@ -163,17 +175,6 @@ const addCard = () => {
 
   return newCardId;
 };
-
-// вставляем имя и описание профиля с сервера при загрузке страницы
-api.getUserInfo()
-  .then(data => {
-    myId.id = data._id;
-    userInfo.setUserInfo(data);
-  })
-  .catch(err => console.error(err));
-
-// рендерим начальные карточки
-cardList.renderItems();
 
 // валидируем формы при загрузке страницы
 formEditValidator.enableValidation();

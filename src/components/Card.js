@@ -6,15 +6,10 @@ export default class Card {
     handleDeleteClick, // обрабатываем клик по иконке удаления
     handleLikeClick // обрабатываем клик по лайку
   }, myId, newCardId ) {
-
-    // console.log(newCardId)
-
     this.data = data;
-
     this._name = data.name;
     this._link = data.link;
     this._likes = data.likes ? data.likes : 0;
-
     this._myId = myId.id;
     this._newCardId = newCardId;
     this._cardId = data._id;
@@ -48,7 +43,6 @@ export default class Card {
         }
       });
     }
-
     // если условие не прошло, возвращаемся
     return;
   }
@@ -78,7 +72,6 @@ export default class Card {
 
   _checkActiveLike(element) {
     if (element.classList.contains('btn_type_like-active')) return true;
-
     return false;
   }
 
