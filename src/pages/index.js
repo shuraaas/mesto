@@ -83,12 +83,7 @@ const createCard = (cardData) => {
     cardSelector: cardSelector,
     handleCardClick: (link, name) => popupTypeZoom.open(link, name),
     handleDeleteClick: (cardId, newCardId) => {
-
       const currentCardId = cardId || newCardId;
-
-      // console.log(`cardId ${cardId}`)
-      // console.log(`newCardId ${newCardId}`)
-      // console.log(`currentCardId ${currentCardId}`)
 
       popupTypeDeleteCard.open();
       popupTypeDeleteCard.onSubmit(() => {
@@ -101,17 +96,19 @@ const createCard = (cardData) => {
           .catch(err => console.error(err));
       });
     },
-    handleLikeClick: (status, cardId, cardLikeElement) => {
+    handleLikeClick: (status, cardId, cardLikeElement, cardLikesCounterElement) => {
       if (status) {
         api.setLike(cardId)
-          .then(() => {
+          .then((card) => {
             cardLikeElement.classList.add('btn_type_like-active');
+            cardLikesCounterElement.textContent = card.likes.length;
           })
           .catch(err => console.error(err));
       } else {
         api.deleteLike(cardId)
-          .then(() => {
+          .then((card) => {
             cardLikeElement.classList.remove('btn_type_like-active');
+            cardLikesCounterElement.textContent = card.likes.length || '';
           })
           .catch(err => console.error(err));
       }

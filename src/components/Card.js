@@ -14,10 +14,9 @@ export default class Card {
     this._name = data.name;
     this._link = data.link;
     this._likes = data.likes ? data.likes : 0;
+
     this._myId = myId.id;
     this._newCardId = newCardId;
-    // console.log(this._newCardId)
-
     this._cardId = data._id;
     this._cardOwnerId = data.owner ? data.owner._id : null;
     this._cardSelector = cardSelector;
@@ -77,48 +76,26 @@ export default class Card {
     return this._element;
   }
 
+  _checkActiveLike(element) {
+    if (element.classList.contains('btn_type_like-active')) return true;
+
+    return false;
+  }
+
   // лайк карточке
   _likeCard(cardId) {
-    const count = Number(this._cardLikesCounterElement.textContent);
-
-    // если вообще накаких лайков нет
-    if (!this._cardLikesCounterElement.textContent) {
-      // пока ставим в текст 1 и меняем иконку на активную
-      this._cardLikesCounterElement.textContent = '1';
-      this._cardLikesCounterElement.textContent = count + 1;
-
-
-      if (!cardId) {
-        // console.log(this._newCardId.id)
-        this._handleLikeClick(true, this._newCardId.id, this._cardLikeElement);
+    if (!cardId) {
+      if (this._checkActiveLike(this._cardLikeElement)) {
+        this._handleLikeClick(false, this._newCardId.id, this._cardLikeElement, this._cardLikesCounterElement);
       } else {
-        this._handleLikeClick(true, this._cardId, this._cardLikeElement);
+        this._handleLikeClick(true, this._newCardId.id, this._cardLikeElement, this._cardLikesCounterElement);
       }
-
-      // если есть мой лайк есть
-    } else if (this._cardLikeElement.classList.contains('btn_type_like-active')) {
-      // меняем иконку на неактивную
-
-      if (!cardId) {
-        this._handleLikeClick(false, this._newCardId.id, this._cardLikeElement);
-      } else {
-        this._handleLikeClick(false, this._cardId, this._cardLikeElement);
-      }
-
-
-      // если стотит только 1 лайк, проверяем
-      this._cardLikesCounterElement.textContent = count - 1 > 0 ? count - 1 : '';
-
-      // если лайки есть, плюсуем к ним свой
     } else {
-      this._cardLikesCounterElement.textContent = count + 1;
-
-      if (!cardId) {
-        this._handleLikeClick(true, this._newCardId.id, this._cardLikeElement);
+      if (this._checkActiveLike(this._cardLikeElement)) {
+        this._handleLikeClick(false, this._cardId, this._cardLikeElement, this._cardLikesCounterElement);
       } else {
-        this._handleLikeClick(true, this._cardId, this._cardLikeElement);
+        this._handleLikeClick(true, this._cardId, this._cardLikeElement, this._cardLikesCounterElement);
       }
-
     }
   }
 
