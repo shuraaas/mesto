@@ -12,7 +12,6 @@
 .btn_inactive{background:#fff;border:1px solid rgba(0,0,0,.2);color:rgba(0,0,0,.2);padding:13px 0}
 .btn_hidden{display:none}
 .page{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;align-items:center;background-color:#000;box-sizing:border-box;color:#fff;display:flex;flex-direction:column;font-family:Inter,Arial,sans-serif}
-.page_no-scroll{overflow:hidden}
 .page__container{max-width:880px;min-width:320px;width:100%}
 .header{border-bottom:1px solid rgba(84,84,84,.7);padding:45px 0 37px}@media (min-width:320px) and (max-width:1279px){.header{padding:28px 27px}}
 .header__logo{height:33px;width:142px}@media (min-width:320px) and (max-width:1279px){.header__logo{height:24px;width:103px}}
