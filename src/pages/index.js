@@ -54,10 +54,12 @@ const popupTypeEdit = new PopupWithForm({
   handleFormSubmit: (data) => {
     popupTypeEdit.renderLoading(true);
     api.setUserInfo(data)
-      .then(() => popupTypeEdit.close())
+      .then((userData) => {
+        userInfo.setUserInfo(userData);
+        popupTypeEdit.close();
+      })
       .catch(err => console.error(err))
       .finally(() => popupTypeEdit.renderLoading(false));
-    userInfo.setUserInfo(data);
   },
   handleFormPrefill: (inputs) => {
     const values = userInfo.getUserInfo();
@@ -70,10 +72,12 @@ const popupTypeEditAvatar = new PopupWithForm({
   handleFormSubmit: (data) => {
     popupTypeEditAvatar.renderLoading(true);
     api.changeAvatar(data)
-      .then(() => popupTypeEditAvatar.close())
+      .then((userData) => {
+        userInfo.setUserInfo(userData);
+        popupTypeEditAvatar.close();
+      })
       .catch(err => console.error(err))
       .finally(() => popupTypeEditAvatar.renderLoading(false));
-    userInfo.setUserAvatar(data);
   }
 });
 
@@ -142,7 +146,6 @@ const cardList = new Section({
 const openEditPopup = () => {
   formEditValidator.validatePopup();
   popupTypeEdit.open();
-  userInfo.setUserInfo(userInfo.getUserInfo());
 };
 
 const openEditAvatarPopup = () => {
