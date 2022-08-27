@@ -140,19 +140,21 @@ const cardList = new Section({
 
 // открытие попап редактирования
 const openEditPopup = () => {
+  formEditValidator.validatePopup();
   popupTypeEdit.open();
   userInfo.setUserInfo(userInfo.getUserInfo());
 };
 
 const openEditAvatarPopup = () => {
+  formEditAvatarValidator.validatePopup();
   popupTypeEditAvatar.open();
 };
 
 // открытие попап добавления карточки
 const openAddCardPopup = () => {
+  formAddCardValidator.validatePopup();
   formAddCard.reset();
   popupTypeAdd.open();
-  formAddCardValidator.validatePopup();
 };
 
 // добавление новой карточки

@@ -6,36 +6,36 @@ export default class FormValidator {
     this._button = this._formElement.querySelector(this._settings.submitButtonSelector);
   }
 
-  _showInputError(formElement, inputElement, errorMessage) {
-    const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
+  _showInputError(inputElement, errorMessage) {
+    const errorElement = this._formElement.querySelector(`.${inputElement.id}-error`);
 
     inputElement.classList.add(this._settings.inputErrorClass);
     errorElement.textContent = errorMessage;
     errorElement.classList.add(this._settings.errorClass);
   }
 
-  _hideInputError(formElement, inputElement) {
-    const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
+  _hideInputError(inputElement) {
+    const errorElement = this._formElement.querySelector(`.${inputElement.id}-error`);
 
     inputElement.classList.remove(this._settings.inputErrorClass);
     errorElement.classList.remove(this._settings.errorClass);
     errorElement.textContent = '';
   }
 
-  _checkInputValidity(formElement, inputElement) {
+  _checkInputValidity(inputElement) {
     if (!inputElement.validity.valid) {
-      this._showInputError(formElement, inputElement, inputElement.validationMessage);
+      this._showInputError(inputElement, inputElement.validationMessage);
     } else {
-      this._hideInputError(formElement, inputElement);
+      this._hideInputError(inputElement);
     }
   }
 
-  _setEventListeners(formElement) {
+  _setEventListeners() {
     this._toggleButtonState();
 
     this._inputList.forEach((inputElement) => {
       inputElement.addEventListener('input', () => {
-        this._checkInputValidity(formElement, inputElement);
+        this._checkInputValidity(inputElement);
         this._toggleButtonState();
       });
     });
@@ -62,11 +62,11 @@ export default class FormValidator {
   // валидация формы попапа при открытии
   validatePopup() {
     this._toggleButtonState();
+    this._inputList.forEach(input => this._hideInputError(input));
   }
 
   // публичный метод, включает валидацию формы
   enableValidation() {
-    const fieldset = this._formElement.querySelector('.form__content');
-    this._setEventListeners(fieldset);
+    this._setEventListeners();
   }
 } // class FormValidator
