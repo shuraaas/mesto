@@ -77,7 +77,6 @@ export default class Api {
     .then(this._checkResult);
   }
 
-
   // загружаем новый аватар на сервер
   changeAvatar(data) {
     return fetch(`${this._url}/users/me/avatar`, {

@@ -10,14 +10,9 @@ import {
   buttonAdd,
   userData,
   cardsListSelector,
-  formEdit,
-  formAddCard,
-  formEditAvatar,
-  // placeNameInput,
-  // urlPlaceInput,
   cardSelector,
   myId,
-  // newCardId
+  formValidators
 } from '../utils/constants.js';
 
 // классы
@@ -60,10 +55,6 @@ const popupTypeEdit = new PopupWithForm({
       })
       .catch(err => console.error(err))
       .finally(() => popupTypeEdit.renderLoading(false));
-  },
-  handleFormPrefill: (inputs) => {
-    const values = userInfo.getUserInfo();
-    inputs.forEach(input => input.value = values[input.name]);
   }
 });
 
@@ -93,8 +84,6 @@ const popupTypeAdd = new PopupWithForm({
     // отправляем карточку на сервер
     api.setNewCard(cardInfo)
       .then(cardData => {
-        // console.log(cardData)
-        // newCardId.id = cardData._id;
         popupTypeAdd.close();
         cardList.addItem(createCard(cardData));
       })
@@ -106,27 +95,13 @@ const popupTypeAdd = new PopupWithForm({
 const popupTypeZoom = new PopupWithImage('.popup_type_zoom-img');
 const popupTypeDeleteCard = new PopupWithConfirmation('.popup_type_delete-card');
 
-// для каждой формы свой экземпляр класса
-const formEditValidator = new FormValidator(settings, formEdit);
-const formAddCardValidator = new FormValidator(settings, formAddCard);
-const formEditAvatarValidator = new FormValidator(settings, formEditAvatar);
-
 // создание новой карточки
 const createCard = (cardData) => {
   const card = new Card({
     data: cardData,
     cardSelector: cardSelector,
     handleCardClick: (link, name) => popupTypeZoom.open(link, name),
-    // handleDeleteClick: (cardId, newCardId) => {
     handleDeleteClick: (card) => {
-
-
-      // console.log(card)
-      // console.log(newCardId)
-
-      // const currentCardId = cardId || newCardId;
-      // const currentCardId = cardId;
-
       popupTypeDeleteCard.open();
       popupTypeDeleteCard.setSubmitHandler(() => {
         api.deleteCard(card.getId())
@@ -142,7 +117,6 @@ const createCard = (cardData) => {
         .then((res) => card.updateLikes(res))
         .catch(err => console.error(err));
     }
-  // }, myId, newCardId);
   }, myId);
 
   return card.generateCard();
@@ -155,25 +129,36 @@ const cardList = new Section({
 
 // открытие попап редактирования
 const openEditPopup = () => {
-  formEditValidator.validatePopup();
+  formValidators['edit-profile'].validatePopup();
+  popupTypeEdit.setInputValues(userInfo.getUserInfo());
   popupTypeEdit.open();
 };
 
 const openEditAvatarPopup = () => {
-  formEditAvatarValidator.validatePopup();
+  formValidators['edit-avatar'].validatePopup();
   popupTypeEditAvatar.open();
 };
 
 // открытие попап добавления карточки
 const openAddCardPopup = () => {
-  formAddCardValidator.validatePopup();
+  formValidators['new-place'].validatePopup();
   popupTypeAdd.open();
 };
 
-// валидируем формы при загрузке страницы
-formEditValidator.enableValidation();
-formAddCardValidator.enableValidation();
-formEditAvatarValidator.enableValidation();
+const enableValidation = (config) => {
+  const formList = Array.from(document.querySelectorAll(config.formSelector));
+  formList.forEach((formElement) => {
+    const validator = new FormValidator(settings, formElement);
+    // получаем данные из атрибута `name` у формы
+    const formName = formElement.getAttribute('name')
+    // вот тут в объект записываем под именем формы
+    formValidators[formName] = validator;
+    validator.enableValidation();
+  });
+};
+
+// Включение валидации
+enableValidation(settings);
 
 // Слушатели -----
 // добавляем слушатели на попапы

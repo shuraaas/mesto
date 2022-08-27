@@ -5,14 +5,12 @@ export default class Card {
     handleCardClick, // обрабатываем клик по картинке
     handleDeleteClick, // обрабатываем клик по иконке удаления
     handleLikeClick // обрабатываем клик по лайку
-  // }, myId, newCardId ) {
   }, myId ) {
     this.data = data;
     this._name = data.name;
     this._link = data.link;
     this.likes = data.likes ? data.likes : 0;
     this._myId = myId.id;
-    // this._newCardId = newCardId;
     this._cardId = data._id;
     this._cardOwnerId = data.owner ? data.owner._id : null;
     this._cardSelector = cardSelector;
@@ -102,8 +100,6 @@ export default class Card {
   _setEventListeners() {
     this._cardImageElement.addEventListener('click', () => this._handleCardClick(this._link, this._name));
     this._cardLikeButton.addEventListener('click', () => this._handleLikeClick(this));
-    // this._cardDeleteBtnElement.addEventListener('click', () => this._handleDeleteClick(this._cardId, this._newCardId.id));
-    // this._cardDeleteBtnElement.addEventListener('click', () => this._handleDeleteClick(this._cardId));
     this._cardDeleteBtnElement.addEventListener('click', () => this._handleDeleteClick(this));
   }
 } // Class CARD

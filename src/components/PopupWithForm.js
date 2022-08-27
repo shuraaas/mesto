@@ -1,10 +1,9 @@
 import Popup from './Popup.js';
 
 export default class PopupWithForm extends Popup {
-  constructor({ popupSelector, handleFormSubmit, handleFormPrefill }) {
+  constructor({ popupSelector, handleFormSubmit }) {
     super(popupSelector);
     this._handleFormSubmit = handleFormSubmit;
-    this._handleFormPrefill = handleFormPrefill;
     this._boundGetInputValues = this._getInputValues.bind(this);
     this._form = this._popup.querySelector('.form');
     this._inputList = this._popup.querySelectorAll('.form__input');
@@ -31,11 +30,11 @@ export default class PopupWithForm extends Popup {
     }
   }
 
-  open() {
-    if(this._handleFormPrefill) {
-      this._handleFormPrefill(this._inputList);
-    }
-    super.open();
+  // вставляем данные в попап при открытии
+  setInputValues(data) {
+    this._inputList.forEach((input) => {
+      input.value = data[input.name];
+    });
   }
 
   close() {
