@@ -13,11 +13,11 @@ import {
   formEdit,
   formAddCard,
   formEditAvatar,
-  placeNameInput,
-  urlPlaceInput,
+  // placeNameInput,
+  // urlPlaceInput,
   cardSelector,
   myId,
-  newCardId
+  // newCardId
 } from '../utils/constants.js';
 
 // классы
@@ -83,8 +83,23 @@ const popupTypeEditAvatar = new PopupWithForm({
 
 const popupTypeAdd = new PopupWithForm({
   popupSelector: '.popup_type_new-card',
-  handleFormSubmit: () => {
-    addCard();
+  handleFormSubmit: (data) => {
+    const cardInfo = {
+      name: data['place-name'],
+      link: data.url
+    }
+
+    popupTypeAdd.renderLoading(true);
+    // отправляем карточку на сервер
+    api.setNewCard(cardInfo)
+      .then(cardData => {
+        // console.log(cardData)
+        // newCardId.id = cardData._id;
+        popupTypeAdd.close();
+        cardList.addItem(createCard(cardData));
+      })
+      .catch(err => console.error(err))
+      .finally(() => popupTypeAdd.renderLoading(false));
   }
 });
 
@@ -102,12 +117,19 @@ const createCard = (cardData) => {
     data: cardData,
     cardSelector: cardSelector,
     handleCardClick: (link, name) => popupTypeZoom.open(link, name),
-    handleDeleteClick: (cardId, newCardId) => {
-      const currentCardId = cardId || newCardId;
+    // handleDeleteClick: (cardId, newCardId) => {
+    handleDeleteClick: (card) => {
+
+
+      // console.log(card)
+      // console.log(newCardId)
+
+      // const currentCardId = cardId || newCardId;
+      // const currentCardId = cardId;
 
       popupTypeDeleteCard.open();
       popupTypeDeleteCard.setSubmitHandler(() => {
-        api.deleteCard(currentCardId)
+        api.deleteCard(card.getId())
           .then(() => {
             popupTypeDeleteCard.close();
             card.deleteCard();
@@ -115,24 +137,13 @@ const createCard = (cardData) => {
           .catch(err => console.error(err));
       });
     },
-    handleLikeClick: (status, cardId, cardLikeElement, cardLikesCounterElement) => {
-      if (status) {
-        api.setLike(cardId)
-          .then((card) => {
-            cardLikeElement.classList.add('btn_type_like-active');
-            cardLikesCounterElement.textContent = card.likes.length;
-          })
-          .catch(err => console.error(err));
-      } else {
-        api.deleteLike(cardId)
-          .then((card) => {
-            cardLikeElement.classList.remove('btn_type_like-active');
-            cardLikesCounterElement.textContent = card.likes.length || '';
-          })
-          .catch(err => console.error(err));
-      }
+    handleLikeClick: (card) => {
+      api.likeCard(card.getId(), card.getStatus())
+        .then((res) => card.updateLikes(res))
+        .catch(err => console.error(err));
     }
-  }, myId, newCardId);
+  // }, myId, newCardId);
+  }, myId);
 
   return card.generateCard();
 };
@@ -156,29 +167,7 @@ const openEditAvatarPopup = () => {
 // открытие попап добавления карточки
 const openAddCardPopup = () => {
   formAddCardValidator.validatePopup();
-  formAddCard.reset();
   popupTypeAdd.open();
-};
-
-// добавление новой карточки
-const addCard = () => {
-  const name = placeNameInput.value;
-  const link = urlPlaceInput.value;
-
-  popupTypeAdd.renderLoading(true);
-  // отправляем карточку на сервер
-  api.setNewCard({ name, link })
-    // todo: тут сервер возвращает объект с данными новой карточки, тут есть ее ID
-    .then(cardData => {
-      newCardId.id = cardData._id;
-      popupTypeAdd.close();
-    })
-    .catch(err => console.error(err))
-    .finally(() => popupTypeAdd.renderLoading(false));
-
-  cardList.addItem(createCard({ name, link }));
-
-  return newCardId;
 };
 
 // валидируем формы при загрузке страницы

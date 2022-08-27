@@ -42,14 +42,14 @@ const formEdit = page.querySelector('.form_type_edit');
 const formAddCard = page.querySelector('.form_type_add-card');
 const formEditAvatar = page.querySelector('.form_type_edit-avatar');
 
-const placeNameInput = formAddCard.querySelector('.form__input_type_place-name');
-const urlPlaceInput = formAddCard.querySelector('.form__input_type_url');
+// const placeNameInput = formAddCard.querySelector('.form__input_type_place-name');
+// const urlPlaceInput = formAddCard.querySelector('.form__input_type_url');
 
 // шаблон карточки
 const cardSelector = '.card-template';
 
 const myId = {id: ''};
-const newCardId = {id: ''};
+// const newCardId = {id: ''};
 
 export {
   settings,
@@ -62,10 +62,10 @@ export {
   formEdit,
   formAddCard,
   formEditAvatar,
-  placeNameInput,
-  urlPlaceInput,
+  // placeNameInput,
+  // urlPlaceInput,
   page,
   cardSelector,
   myId,
-  newCardId
+  // newCardId
 };

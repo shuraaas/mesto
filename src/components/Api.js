@@ -69,22 +69,14 @@ export default class Api {
   }
 
   // ставим лайк
-  setLike(cardId) {
+  likeCard(cardId, status) {
     return fetch(`${this._url}cards/${cardId}/likes`, {
-      method: 'PUT',
+      method: status ? 'DELETE' : 'PUT',
       headers: this._headers
     })
     .then(this._checkResult);
   }
 
-  // убираем лайк
-  deleteLike(cardId) {
-    return fetch(`${this._url}cards/${cardId}/likes`, {
-      method: 'DELETE',
-      headers: this._headers
-    })
-    .then(this._checkResult);
-  }
 
   // загружаем новый аватар на сервер
   changeAvatar(data) {
