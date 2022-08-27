@@ -102,7 +102,7 @@ const createCard = (cardData) => {
       const currentCardId = cardId || newCardId;
 
       popupTypeDeleteCard.open();
-      popupTypeDeleteCard.onSubmit(() => {
+      popupTypeDeleteCard.setSubmitHandler(() => {
         api.deleteCard(currentCardId)
           .then(() => {
             popupTypeDeleteCard.close();

@@ -7,7 +7,7 @@ export default class PopupWithConfirmation extends Popup {
     this._boundSubmitHandler = this._submitHandler.bind(this);
   }
 
-  onSubmit(confirmCallback) {
+  setSubmitHandler(confirmCallback) {
     this._confirmCallback = confirmCallback;
   }
 
