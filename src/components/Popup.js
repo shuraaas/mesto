@@ -1,5 +1,3 @@
-import { page } from '../utils/constants.js';
-
 // класс отвечает за открытие и закрытие попапа
 export default class Popup {
   constructor(popupSelector) {
@@ -17,14 +15,12 @@ export default class Popup {
   // открытие попапа
   open() {
     this._popup.classList.add('popup_opened');
-    page.classList.add('page_no-scroll');
     document.addEventListener('keydown', this._boundHandleEscClose);
   }
 
   // закрытие попапа
   close() {
     this._popup.classList.remove('popup_opened');
-    page.classList.remove('page_no-scroll');
     document.removeEventListener('keydown', this._boundHandleEscClose);
   }
 
