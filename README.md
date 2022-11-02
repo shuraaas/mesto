@@ -18,6 +18,19 @@
 * NPM
 * Webpack
 
+## Порядок работы с проектом:
+
+1. Клонировать проект:
+   `git clone https://github.com/shuraaas/mesto.git`
+2. Установить зависимости:
+   `npm i`
+3. Запустить dev-server:
+   `npm run dev`
+4. Собрать проект:
+   `npm run build`
+5. Задеплоить в Github Pages:
+   `npm run deploy`
+
 ## Посмотреть страницу и макет:
 
 * [Место на Github Pages](https://shuraaas.github.io/mesto/index.html)
